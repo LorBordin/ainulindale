@@ -4,6 +4,8 @@ title:  "Building a Spam Classifier"
 date:   2019-12-19
 categories: jekyll update
 ---
+
+
 We all face the problem of spam e-mails in our inboxes.
 Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or _ham_ emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted [^foot].
 Fortunately, we don't see all these messages since the providers we use already contain spam filters that simply delete or reject _obvious spam_.
@@ -20,7 +22,7 @@ If you are interested in the code, you take a look at the Jupyter notebook in my
 [^foot]: [Wikipedia/spam] (https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates">Wikipedia/spam)
 
 
-##1. Getting the data
+## 1. Getting the data
 
 The best data we can use to build a spam filter __tuned for our (or our company) needs__  are our own mails. Getting the data in this way is easy, in my case I built up a quite large database in few months.
 
@@ -111,17 +113,21 @@ Time to train our filter!
 But firstly we need to choose a __training score__. 
 The simplest thing we could be tempted to use is the __accuracy score__ that just counts the number of wrong predictions
 
-$$ accuracy = \frac{wrong\ predictions}{total}\,. $$
+<div align="center">
+<img src="/Users/lorenzo/ainulindale/_images/accuracy.png" width="225">
+</div>
 
 This is __not a good score__, though. 
-In fact, in our dataset only \( \sim 15\%\) of mails are spam. So, a _dumb filter_ that classifies everything as ham would score an accuracy of \( \sim 85\%\) which is already high.<br>
+In fact, in our dataset only ~ 15% of mails are spam. So, a _dumb filter_ that classifies everything as ham would score an accuracy of ~ 85% which is already high.<br>
 Moreover, accuracy considers _false positive_ (FP) and _false negative_ (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
 This is to say that instead of accuracy it's better to use a combination of two additional scores, __precision__ and __recall__, 
 
-$$ precision = \frac{TP}{TP+FP}\,, \qquad\qquad recall = \frac{TP}{TP+FN}\,, $$
+<div align="center">
+<img src="/Users/lorenzo/ainulindale/_images/prec_rec.png" width="380">
+</div>
 
 where TP and FP stand respectively for _true positive_ and _false negative_, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
-The _harmonic mean_ of precision and recall is called __$F_1$ score__ and works better than accuracy. This is the score we are going to maximize in training the spam filter. 
+The _harmonic mean_ of precision and recall is called __F1 score__ and works better than accuracy. This is the score we are going to maximize in training the spam filter. 
 
 We chose the score, let's train the classifier! But..<br>
 What model shall we use? Linear model? Support Vector Machine? Random Forest? Well let's train them all and __make a voting classifier__, most probably it'll perform better than any individual classifier.

@@ -31,6 +31,7 @@ linkedin_username: lorenzo-bordin-694b6812a
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-katex
 
 # Exclude from processing.
 # The following items will not be processed, by default.
