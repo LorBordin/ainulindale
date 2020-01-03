@@ -114,7 +114,7 @@ But firstly we need to choose a __training score__.
 The simplest thing we could be tempted to use is the __accuracy score__ that just counts the number of wrong predictions
 
 <div align="center">
-<img src="/Users/lorenzo/ainulindale/_images/accuracy.png" width="225">
+<img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/accuracy.png" width="225">
 </div>
 
 This is __not a good score__, though. 
@@ -123,7 +123,7 @@ Moreover, accuracy considers _false positive_ (FP) and _false negative_ (FN) equ
 This is to say that instead of accuracy it's better to use a combination of two additional scores, __precision__ and __recall__, 
 
 <div align="center">
-<img src="/Users/lorenzo/ainulindale/_images/prec_rec.png" width="380">
+<img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/prec_rec.png" width="380">
 </div>
 
 where TP and FP stand respectively for _true positive_ and _false negative_, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
