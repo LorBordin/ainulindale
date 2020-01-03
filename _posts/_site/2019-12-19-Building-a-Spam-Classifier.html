@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>2019-12-19-Building-a-Spam-Classifier</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<hr>
+
+<p>layout: post
+title: &quot;Building a Spam Classifier&quot;
+date: 2019-12-19</p>
+
+<h2 id="toc_0">categories: jekyll update</h2>
+
+<h1 id="toc_1">Building a Spam Classifier</h1>
+
+<p>We all face the problem of spam e-mails in our inboxes.
+Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or <em>ham</em> emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>.
+Fortunately, we don&#39;t see all these messages since the providers we use already contain spam filters that simply delete or reject &quot;obvious spam&quot;.
+However, many unwanted messages are still able to avoid these filters and make their way to us.</p>
+
+<p>To better filter out all the unwanted spam one can build and tune an <em>ad hoc</em> filter using his own mails. This is a simple task that can be realized using some <strong>machine learning</strong> technique.
+As for any machine learning project the hardest part is the preprocessing that one needs to do before training the algorithm. 
+In this post I will describe in words how analyse an email dataset in order to select and extract the best features that will be be used to build a simple yet powerful spam filter. </p>
+
+<p>My filter is written in <strong>python</strong> however the ideas I describe are very general .
+For this reason I do not share any snippet in this post.
+If you are interested in the code, you take a look at the Jupyter notebook in my <a href="https://github.com/LorBordin/Spam-Classifier">GitHub repo</a>.</p>
+
+<h2 id="toc_2">1. Getting the data</h2>
+
+<p>The best data we can use to build a spam filter <strong>tuned for our (or our company) needs</strong>  are our own mails. Getting the data in this way is easy, in my case I built up a quite large database in few months.</p>
+
+<p>For privacy reasons, I will not share my private dataset, but we will work on the <a href="https://spamassassin.apache.org/old/publiccorpus/">Apache SpamAssassin’s public datasets</a>. It&#39;s the perfect set to start with: no pre-processing at all has been made the dataset that consists in <em>raw</em> emails, the we get from our mail-box.</p>
+
+<p>The SpamAssasins&#39;s dataset consists in three different compressed files that contain:</p>
+
+<ul>
+<li>2500 e-mails classified as <strong>easy ham</strong>,</li>
+<li>250 <strong>hard ham</strong> e-mails,</li>
+<li>500 <strong>spam</strong> e-mails.</li>
+</ul>
+
+<p>After having downloaded the content, the first thing we have to do before starting any analysis is to split our dataset into a <strong>train</strong> and <strong>test</strong> set.
+In practice we label the emails with their class (ham or spam), then we merge the sets together, shuffle and finally split the dataset in two: a bigger one (80% of the mail) and a smaller set for the final evaluation (the test set).</p>
+
+<h2 id="toc_3">2. Data cleaning</h2>
+
+<p>Let&#39;s focus on the train set. We need to extract some features to train our spam-filter. A good thing to do is to look at the email content. 
+Spam mails often consists in advertising messages, so they might contain some common word as <em>money</em>,  <em>opportunity</em>, <em>loan</em> or <em>mortage</em>. </p>
+
+<p>It is therefore important to extract the words content from each mail and build 
+a list with the most common spam mails.</p>
+
+<p>Let&#39;s start with the words extraction. We need to implement the following parsing operations:</p>
+
+<ul>
+<li>remove all the html tags,</li>
+<li>remove punctuation,</li>
+<li>covert words in lower-case,</li>
+<li>replace numbers with <em>NUMBER</em> and urls with <em>URL</em>.</li>
+</ul>
+
+<p>In python, there are some packages which are very useful for this purpose. Personally, I used <code>email</code> to extract the body&#39;s content from each email, <code>regex</code> and <code>beautifulsoup</code> to parse it. </p>
+
+<h2 id="toc_4">3. Data Analysis</h2>
+
+<p>Once we&#39;ve extracted the words we have to <strong>count their frequency</strong>.
+For this purpose let&#39;s build 2 vocabularies that count the frequency hammy and spammy words.
+We do so taking care of <strong>removing the english common stopwords</strong>, i.e. words like <em>the</em>, <em>is</em>, <em>at</em>, ..., which are not useful to understand the purpose of an email.
+Here&#39;s the 20 most common ham and spam words in my train dataset:</p>
+
+<p><img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/words_freq.png" alt=""></p>
+
+<p>Good! Words like <strong>free</strong>, <strong>money</strong>, <strong>click</strong> looks really spammy words!</p>
+
+<p>Not only the mail&#39;s content but also the <strong>mail&#39;s subjcet</strong> will probably contain important info.
+Better make a vocabulary for spam&#39;s subject words then.
+Here&#39;s the most common spam subject 20 words:</p>
+
+<p><img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/subj_spam.png" alt=""></p>
+
+<p>We&#39;ve already collected many interesting features, however our mails still contain a lot of info that can be useful for our filter.
+For instance, let&#39;s take a look at <strong>how emails, are structured</strong>. Notice that many of them consist in multipart and, a detailed analysis reveals that spam and ham have in general a different structure: </p>
+
+<p><img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/email_type.png" alt=""></p>
+
+<p>There&#39;s a lot of <em>plain text</em> in the ham dataset, while <em>html</em> is more frequent in the spam one. Good to know.</p>
+
+<h2 id="toc_5">4. Preprocessing</h2>
+
+<p>Now that We&#39;ve chosen the features to feed our spam-filter with we need to convert them into vectors. 
+For each mail we define a vector of length 507 that stores</p>
+
+<ul>
+<li>the frequency if the <strong>most frequent 200 ham words</strong>,</li>
+<li>the frequency of the <strong>most frequent 250 spam words</strong>,</li>
+<li>the frequency of the <strong>most frequent 50 subject words</strong>,</li>
+<li>the <strong>email&#39;s type</strong>.<br></li>
+</ul>
+
+<p>Do not forget to <strong>rescale the features vector</strong> if we are going to use a Support Vector Machine or a Linear model (as I did) to fit the data.</p>
+
+<p>We can get an idea of how the emails dispose in the features space by using the <em>t-SNE</em> algorithm that reduces the dimensionality of the features vector while trying to keep similar instances close and dissimilar instances apart. </p>
+
+<p><img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/clustering.png" alt=""></p>
+
+<p>Notice how ham clusters in several regions, while spam clusters a bit less but lies mainly right part of the plot.</p>
+
+<p>Before proceeding to the training part. let&#39;s tackle the problem of <strong>overfitting</strong>. Our features vector has a large number of entries (507), moreover many of them are words that appear both in the ham and the spam vocabularies, so there are many repeated entries. If we train an algorithm with this vector most probably we are going to overfit it! To avoid this problem we define a function that randomly selects only a subset of entries, taking care of avoiding repeated features. In this way each classifier we&#39;re going to use, will be trained on a different set of features.</p>
+
+<h2 id="toc_6">5. Training some algorithm</h2>
+
+<p>Time to train our filter! </p>
+
+<p>But firstly we need to choose a <strong>training score</strong>. 
+The simplest thing we could be tempted to use is the <strong>accuracy score</strong> that just counts the number of wrong predictions</p>
+
+<p>\[ accuracy = \frac{wrong\ predictions}{total}\,. \]</p>
+
+<p>This is <strong>not a good score</strong>, though. 
+In fact, in our dataset only \( \sim 15\%\) of mails are spam. So, a <em>dumb filter</em> that classifies everything as ham would score an accuracy of \( \sim 85\%\) which is already high.<br>
+Moreover, accuracy considers <em>false positive</em> (FP) and <em>false negative</em> (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
+This is to say that instead of accuracy it&#39;s better to use a combination of two additional scores, <strong>precision</strong> and <strong>recall</strong>, </p>
+
+<p>\[ precision = \frac{TP}{TP+FP}\,, \qquad\qquad recall = \frac{TP}{TP+FN}\,, \]</p>
+
+<p>where TP and FP stand respectively for <em>true positive</em> and <em>false negative</em>, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
+The <em>harmonic mean</em> of precision and recall is called <strong>\(F_1\) score</strong> and works better than accuracy. This is the score we are going to maximize in training the spam filter. </p>
+
+<p>We chose the score, let&#39;s train the classifier! But..<br>
+What model shall we use? Linear model? Support Vector Machine? Random Forest? Well let&#39;s train them all and <strong>make a voting classifier</strong>, most probably it&#39;ll perform better than any individual classifier.
+Personally, I&#39;ve trained the following algorithms:</p>
+
+<ul>
+<li>a <strong>Logistic regressor</strong>,</li>
+<li>a Stochastic Gradient Descent or <strong>SGD classifier</strong>,</li>
+<li>a <strong>Random Forest classifier</strong>,</li>
+<li>a <strong>K Neighbors classifier</strong>,</li>
+<li>a Support Vector Machine or <strong>SVM classifer</strong>.</li>
+</ul>
+
+<p>As discussed in the previous section, it&#39;s better to train each classifier with different features sets, smaller than the total features set. This will help not only for lowering the risk of overfitting, but in this way the algorithms will make uncorrelated errors and the voting classifier will perform better. </p>
+
+<p>To get an idea of how the individual classifiers will generalize to an independent data set we use <em>cross-validation</em>. In practice, we  divide the train dataset in 5 validation sets, then the classifier is evaluated on each validation set, after it is trained on the rest of the data.
+Here&#39;s the results of each model:</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/cv_performances.png" width="400">
+</div> 
+
+<p>Since the Random Forest classifier performs the best among the individual ones, its vote count twice on the voting classifier.</p>
+
+<p>A great quality of Random Forests is that they make it easy to measure the relative importance of each feature. The following plot shows the features that contributed more than \(1\%\) in the decision process.</p>
+
+<p><img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/feature_importances.png" alt=""></p>
+
+<p>It seems that the most important feature is the word <em>click</em> (\(8 \%\)) followed by <em>please</em> and the email types <em>text/html</em> and <em>text/plain</em> (all around \( 5 \%\)).</p>
+
+<h2 id="toc_7">6 Final evaluation</h2>
+
+<p>We&#39;ve fine-tuned and trained the algorithms, cross validated them on the train dataset and built a voting classifier. It&#39;s time to check the performances on the test dataset to asses the performances of our spam filter!</p>
+
+<p>Of course we firstly need to preprocess the test set generating the features vectors as we did for the training set. Then we can finally asses how the voting classifier behaves on an unknown dataset.</p>
+
+<div align="center">
+ <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_voting.png" width="200">
+</div>
+
+<p>It performs very well, confirming the results of the cross-validation test!
+Let&#39;s take a look at the <strong>confusion matrix</strong> :</p>
+
+<div align="center">
+ <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/confusion_matrix.png" width="300">
+</div> 
+
+<p>Wow! It misclassified only 2 ham mails; at the same time it let passed 13 spam mails out of 100. Not bad!</p>
+
+<p>But let&#39;s take a closer look at the misclassified ham mails:</p>
+
+<p>The first is an advertising email form Ryanair</p>
+
+<blockquote>
+<p>Ryanair in partnership with Primary Insurance
+offer excellent value travel insurance from
+£7.00GBP/9.00 Euro per person for 31 day cover.</p>
+
+<p>Annual travel insurance* from £45.00GBP/63.00 Euro, includes 24 days winter
+sports cover !</p>
+
+<p>Our travel insurance provides a high standard of cover.</p>
+
+<p>Summary of Cover</p>
+
+<p>Medical Expenses up to £2 million</p>
+
+<p>Personal Liability  up to £2 million<br>
+Personal Effects &amp; Baggage up to £750<br>
+Personal Accident Maximum Benefit £15,000  </p>
+
+<p>...</p>
+</blockquote>
+
+<p>while the second is written in Japanese (according to Google translate)</p>
+
+<blockquote>
+<p>OpenText社<br>
+伊東様</p>
+
+<p>いつもお世話になっております。 
+安井@infocomです。 </p>
+
+<p>あるタスクリストに、適当なマイルストーンを複数、タスクを複数用意し<br>
+それぞれのタスクについては、存在する適当なマイルストーンに割り当てたものと<br>
+します。 
+あるマイルストーンを見ると、添付の絵にあるような画面が表示されるのですが<br>
+ここで丸で囲った部分（ 期間 ）は、何を意味しているのでしょうか？ </p>
+
+<p>つまり、３７日 、２７日<br>
+のそれぞれの意味（算出のされ方について教えてください。） </p>
+
+<p>また「週末を除く」とありますが、週末を除かない設定方法はあるのでしょうか？ </p>
+
+<p>以上、ご回答の方よろしくお願いいたします。 </p>
+
+<h2 id="toc_8"></h2>
+
+<p>+--------------------------------------+<br>
+インフォコム(株)<br>
+ナレッジマネジメント本部<br>
+KMフロンティア部<br>
+コラボレーティブシステムグループ  </p>
+
+<p>〒101-0062
+東京都千代田区神田駿河台3-11三井住友海上駿河台別館5F<br>
+安井  剛<br>
+E-mail: go@infocom.co.jp<br>
+TEL: 03-3518-3299<br>
+FAX: 03-3518-3055  </p>
+</blockquote>
+
+<p>Here, the distinction between ham and spam gets thin, personally I&#39;d labelled both the emails as spam.</p>
+
+<p>Before concluding, let&#39;s compare the performances of the individual classifiers on the test set: </p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_performances.png" width="400">
+</div> 
+
+<p>This confirms that <strong>the voting classifier scores better than any individual one!</strong> </p>
+
+<h2 id="toc_9">7. Conclusion</h2>
+
+<p>In this post we&#39;ve exploited a public dataset of raw emails and in order to make a <strong>simple yet powerful spam-filter</strong> that detects most of the spam that evade the controls of our providers.  </p>
+
+<p>Again, take a look at my GitHub repo (MAKE LINK) and in particular at the  <strong>Jupyter Notebook</strong> if you wanna inspect the code I used to analyze and preprocess the mails and to train the filter.</p>
+
+<!--- comment on periodically update the dictionaries and re-train the voting classifier in order to keep the filter up-to-date with the new spam e-mails. 
+This is a simple task and it isn't time consuming as well. --->
+
+<p>Finally, I&#39;d like to comment about possible extensions. 
+We&#39;ve developed a spam filter, however the same ideas can applied to other similar tasks; the code as well could be used with little changes. </p>
+
+<p>Obvious examples are a <strong>Hate-speach detector</strong>, that classifies profiles in a social network with little modifications, or a <strong>Clickbait recognizer</strong>, that detects false advertisement from a website.</p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p><a href="https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates">Wikipedia/spam</a>&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
