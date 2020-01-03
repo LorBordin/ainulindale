@@ -148,19 +148,19 @@ For each mail we define a vector of length 507 that stores</p>
 The simplest thing we could be tempted to use is the <strong>accuracy score</strong> that just counts the number of wrong predictions</p>
 
 <div align="center">
-<img src="/Users/lorenzo/ainulindale/_images/accuracy.png" width="225" />
+<img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/accuracy.png" width="225" />
 </div>
-
-<p>This is <strong>not a good score</strong>, though. 
+<p><br />
+This is <strong>not a good score</strong>, though. 
 In fact, in our dataset only ~ 15% of mails are spam. So, a <em>dumb filter</em> that classifies everything as ham would score an accuracy of ~ 85% which is already high.<br />
 Moreover, accuracy considers <em>false positive</em> (FP) and <em>false negative</em> (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
 This is to say that instead of accuracy it’s better to use a combination of two additional scores, <strong>precision</strong> and <strong>recall</strong>,</p>
 
 <div align="center">
-<img src="/Users/lorenzo/ainulindale/_images/prec_rec.png" width="380" />
+<img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/prec_rec.png" width="380" />
 </div>
-
-<p>where TP and FP stand respectively for <em>true positive</em> and <em>false negative</em>, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
+<p><br />
+where TP and FP stand respectively for <em>true positive</em> and <em>false negative</em>, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
 The <em>harmonic mean</em> of precision and recall is called <strong>F1 score</strong> and works better than accuracy. This is the score we are going to maximize in training the spam filter.</p>
 
 <p>We chose the score, let’s train the classifier! But..<br />

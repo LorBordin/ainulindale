@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-03T13:42:34+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>This is Lorenzo's blog, Tolkien appasionate and theoretical phisicist. After 6 years in the academia he is now a  data scientist.</subtitle><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+00:00</published><updated>2019-12-19T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-03T13:53:19+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>This is Lorenzo's blog, Tolkien appasionate and theoretical phisicist. After 6 years in the academia he is now a  data scientist.</subtitle><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+00:00</published><updated>2019-12-19T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
 Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or &lt;em&gt;ham&lt;/em&gt; emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted &lt;sup id=&quot;fnref:foot&quot;&gt;&lt;a href=&quot;#fn:foot&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
 Fortunately, we don’t see all these messages since the providers we use already contain spam filters that simply delete or reject &lt;em&gt;obvious spam&lt;/em&gt;.
 However, many unwanted messages are still able to avoid these filters and make their way to us.&lt;/p&gt;
@@ -101,19 +101,19 @@ For each mail we define a vector of length 507 that stores&lt;/p&gt;
 The simplest thing we could be tempted to use is the &lt;strong&gt;accuracy score&lt;/strong&gt; that just counts the number of wrong predictions&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
-&lt;img src=&quot;/Users/lorenzo/ainulindale/_images/accuracy.png&quot; width=&quot;225&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/accuracy.png&quot; width=&quot;225&quot; /&gt;
 &lt;/div&gt;
-
-&lt;p&gt;This is &lt;strong&gt;not a good score&lt;/strong&gt;, though. 
+&lt;p&gt;&lt;br /&gt;
+This is &lt;strong&gt;not a good score&lt;/strong&gt;, though. 
 In fact, in our dataset only ~ 15% of mails are spam. So, a &lt;em&gt;dumb filter&lt;/em&gt; that classifies everything as ham would score an accuracy of ~ 85% which is already high.&lt;br /&gt;
 Moreover, accuracy considers &lt;em&gt;false positive&lt;/em&gt; (FP) and &lt;em&gt;false negative&lt;/em&gt; (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
 This is to say that instead of accuracy it’s better to use a combination of two additional scores, &lt;strong&gt;precision&lt;/strong&gt; and &lt;strong&gt;recall&lt;/strong&gt;,&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
-&lt;img src=&quot;/Users/lorenzo/ainulindale/_images/prec_rec.png&quot; width=&quot;380&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/prec_rec.png&quot; width=&quot;380&quot; /&gt;
 &lt;/div&gt;
-
-&lt;p&gt;where TP and FP stand respectively for &lt;em&gt;true positive&lt;/em&gt; and &lt;em&gt;false negative&lt;/em&gt;, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
+&lt;p&gt;&lt;br /&gt;
+where TP and FP stand respectively for &lt;em&gt;true positive&lt;/em&gt; and &lt;em&gt;false negative&lt;/em&gt;, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
 The &lt;em&gt;harmonic mean&lt;/em&gt; of precision and recall is called &lt;strong&gt;F1 score&lt;/strong&gt; and works better than accuracy. This is the score we are going to maximize in training the spam filter.&lt;/p&gt;
 
 &lt;p&gt;We chose the score, let’s train the classifier! But..&lt;br /&gt;

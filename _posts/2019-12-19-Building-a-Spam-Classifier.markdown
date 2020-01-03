@@ -111,21 +111,23 @@ Before proceeding to the training part. let's tackle the problem of __overfittin
 Time to train our filter! 
 
 But firstly we need to choose a __training score__. 
-The simplest thing we could be tempted to use is the __accuracy score__ that just counts the number of wrong predictions
+The simplest thing we could be tempted to use is the __accuracy score__ that just counts the number of wrong predictions  
+
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/accuracy.png" width="225">
-</div>
-
+</div>   
+<br>
 This is __not a good score__, though. 
 In fact, in our dataset only ~ 15% of mails are spam. So, a _dumb filter_ that classifies everything as ham would score an accuracy of ~ 85% which is already high.<br>
 Moreover, accuracy considers _false positive_ (FP) and _false negative_ (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
 This is to say that instead of accuracy it's better to use a combination of two additional scores, __precision__ and __recall__, 
 
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/prec_rec.png" width="380">
 </div>
-
+<br>
 where TP and FP stand respectively for _true positive_ and _false negative_, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
 The _harmonic mean_ of precision and recall is called __F1 score__ and works better than accuracy. This is the score we are going to maximize in training the spam filter. 
 
