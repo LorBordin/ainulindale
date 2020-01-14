@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-03T13:53:19+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>This is Lorenzo's blog, Tolkien appasionate and theoretical phisicist. After 6 years in the academia he is now a  data scientist.</subtitle><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+00:00</published><updated>2019-12-19T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
-Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or &lt;em&gt;ham&lt;/em&gt; emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted &lt;sup id=&quot;fnref:foot&quot;&gt;&lt;a href=&quot;#fn:foot&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
-Fortunately, we don’t see all these messages since the providers we use already contain spam filters that simply delete or reject &lt;em&gt;obvious spam&lt;/em&gt;.
-However, many unwanted messages are still able to avoid these filters and make their way to us.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-14T08:30:18+01:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</subtitle><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+01:00</published><updated>2019-12-19T00:00:00+01:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
+Data show that the total volume of spam mails has been consistently growing in time to the point that nowadays it overtakes the amount of ordinary or &lt;em&gt;ham&lt;/em&gt; emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted &lt;sup id=&quot;fnref:foot&quot;&gt;&lt;a href=&quot;#fn:foot&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+Most of the spam is already fitered out by our providers, but
+still, quite a few spam emails are able to evade these filters and make their way to us.&lt;/p&gt;
 
-&lt;p&gt;To better filter out all the unwanted spam one can build and tune an &lt;em&gt;ad hoc&lt;/em&gt; filter using his own mails. This is a simple task that can be realized using some &lt;strong&gt;machine learning&lt;/strong&gt; technique.
-As for any machine learning project the hardest part is the preprocessing that one needs to do before training the algorithm. 
-In this post I will describe in words how analyse an email dataset in order to select and extract the best features that will be be used to build a simple yet powerful spam filter.&lt;/p&gt;
+&lt;p&gt;To better detect the unwanted spam the best way is probably to train an &lt;em&gt;ad hoc&lt;/em&gt; filter, tuned on our own mails. 
+Contrary to what you could think this isn’t a hard task which can be realized with a little of &lt;strong&gt;machine learning&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;My filter is written in &lt;strong&gt;python&lt;/strong&gt; however the ideas I describe are very general .
-For this reason I do not share any snippet in this post.
-If you are interested in the code, you take a look at the Jupyter notebook in my [GitHub repo] (https://github.com/LorBordin/Spam-Classifier).&lt;/p&gt;
+&lt;p&gt;In this post I will describe all the steps and analysis I’ve done, in order to build my personal spam-fitler.
+Given that the important concepts are general and do not rely on any programming languag, here I do not show any code. 
+If you’re interested in the code - written in &lt;strong&gt;Python&lt;/strong&gt; - you can it you can take a look at the Jupyter notebook I’ve used to create this post. Here’e the link to my &lt;a href=&quot;https://github.com/LorBordin/Spam_classifier&quot;&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;1-getting-the-data&quot;&gt;1. Getting the data&lt;/h2&gt;
 
-&lt;p&gt;The best data we can use to build a spam filter &lt;strong&gt;tuned for our (or our company) needs&lt;/strong&gt;  are our own mails. Getting the data in this way is easy, in my case I built up a quite large database in few months.&lt;/p&gt;
+&lt;p&gt;As previously said, to build a spam-filter &lt;strong&gt;tuned for our (or our company) needs&lt;/strong&gt;  one should use her/his own mails. Getting the training data in this way is easy, in my case I built up a quite large database in few months.&lt;/p&gt;
 
-&lt;p&gt;For privacy reasons, I will not share my private dataset, but we will work on the &lt;a href=&quot;https://spamassassin.apache.org/old/publiccorpus/&quot;&gt;Apache SpamAssassin’s public datasets&lt;/a&gt;. It’s the perfect set to start with: no pre-processing at all has been made the dataset that consists in &lt;em&gt;raw&lt;/em&gt; emails, the we get from our mail-box.&lt;/p&gt;
+&lt;p&gt;However, instead of sharing my personal messages, to make this post I’ve opted for the &lt;a href=&quot;https://spamassassin.apache.org/old/publiccorpus/&quot;&gt;Apache SpamAssassin’s public datasets&lt;/a&gt;. It’s the perfect set to start with: no pre-processing at all has been made on it, the dataset consists in &lt;em&gt;raw&lt;/em&gt; emails, the  same we get from the mail-box.&lt;/p&gt;
 
 &lt;p&gt;The SpamAssasins’s dataset consists in three different compressed files that contain:&lt;/p&gt;
 
@@ -25,7 +24,7 @@ If you are interested in the code, you take a look at the Jupyter notebook in my
   &lt;li&gt;500 &lt;strong&gt;spam&lt;/strong&gt; e-mails.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;After having downloaded the content, the first thing we have to do before starting any analysis is to split our dataset into a &lt;strong&gt;train&lt;/strong&gt; and &lt;strong&gt;test&lt;/strong&gt; set.
+&lt;p&gt;The first thing we have to do before starting any analysis is to split our dataset into a &lt;strong&gt;train&lt;/strong&gt; and &lt;strong&gt;test&lt;/strong&gt; set.
 In practice we label the emails with their class (ham or spam), then we merge the sets together, shuffle and finally split the dataset in two: a bigger one (80% of the mail) and a smaller set for the final evaluation (the test set).&lt;/p&gt;
 
 &lt;h2 id=&quot;2-data-cleaning&quot;&gt;2. Data cleaning&lt;/h2&gt;
@@ -33,10 +32,10 @@ In practice we label the emails with their class (ham or spam), then we merge th
 &lt;p&gt;Let’s focus on the train set. We need to extract some features to train our spam-filter. A good thing to do is to look at the email content. 
 Spam mails often consists in advertising messages, so they might contain some common word as &lt;em&gt;money&lt;/em&gt;,  &lt;em&gt;opportunity&lt;/em&gt;, &lt;em&gt;loan&lt;/em&gt; or &lt;em&gt;mortage&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;It is therefore important to extract the words content from each mail and build 
+&lt;p&gt;So we want to extract the words content from each mail and build 
 a list with the most common spam mails.&lt;/p&gt;
 
-&lt;p&gt;Let’s start with the words extraction. We need to implement the following parsing operations:&lt;/p&gt;
+&lt;p&gt;Let’s start with the words extraction part. To avoid repetitions it’s better to firstly parse the mails’ content doing the following operations:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;remove all the html tags,&lt;/li&gt;
@@ -45,27 +44,27 @@ a list with the most common spam mails.&lt;/p&gt;
   &lt;li&gt;replace numbers with &lt;em&gt;NUMBER&lt;/em&gt; and urls with &lt;em&gt;URL&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In python, there are some packages which are very useful for this purpose. Personally, I used  &lt;code class=&quot;highlighter-rouge&quot;&gt;email &lt;/code&gt; to extract the body’s content from each email,  &lt;code class=&quot;highlighter-rouge&quot;&gt;regex &lt;/code&gt; and  &lt;code class=&quot;highlighter-rouge&quot;&gt;beautifulsoup &lt;/code&gt; to parse it.&lt;/p&gt;
+&lt;p&gt;If you use &lt;em&gt;python&lt;/em&gt;, some packages like &lt;code class=&quot;highlighter-rouge&quot;&gt;email&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt; and  &lt;code class=&quot;highlighter-rouge&quot;&gt;beautifulsoup&lt;/code&gt; are very useful for this purpose.&lt;/p&gt;
 
 &lt;h2 id=&quot;3-data-analysis&quot;&gt;3. Data Analysis&lt;/h2&gt;
 
-&lt;p&gt;Once we’ve extracted the words we have to &lt;strong&gt;count their frequency&lt;/strong&gt;.
-For this purpose let’s build 2 vocabularies that count the frequency hammy and spammy words.
-We do so taking care of &lt;strong&gt;removing the english common stopwords&lt;/strong&gt;, i.e. words like &lt;em&gt;the&lt;/em&gt;, &lt;em&gt;is&lt;/em&gt;, &lt;em&gt;at&lt;/em&gt;, …, which are not useful to understand the purpose of an email.
+&lt;p&gt;We’ve extracted the words let’s &lt;strong&gt;count their frequency&lt;/strong&gt;.
+It is convenient to build 2 different vocabularies that count the frequency hammy and spammy words.
+In doing so don’t forget to &lt;strong&gt;remove the english common stopwords&lt;/strong&gt; like &lt;em&gt;the&lt;/em&gt;, &lt;em&gt;is&lt;/em&gt;, &lt;em&gt;at&lt;/em&gt;, …, which are not useful to understand the content of the mail.
 Here’s the 20 most common ham and spam words in my train dataset:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/words_freq.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Good! Words like &lt;strong&gt;free&lt;/strong&gt;, &lt;strong&gt;money&lt;/strong&gt;, &lt;strong&gt;click&lt;/strong&gt; looks really spammy words!&lt;/p&gt;
+&lt;p&gt;Good! Notice Words like &lt;strong&gt;free&lt;/strong&gt;, &lt;strong&gt;money&lt;/strong&gt;, &lt;strong&gt;click&lt;/strong&gt; that appear often only in spam mails. They look like really spammy words!&lt;/p&gt;
 
-&lt;p&gt;Not only the mail’s content but also the &lt;strong&gt;mail’s subjcet&lt;/strong&gt; will probably contain important info.
-Better make a vocabulary for spam’s subject words then.
-Here’s the most common spam subject 20 words:&lt;/p&gt;
+&lt;p&gt;Let’s parse the &lt;strong&gt;mails’ subjcet&lt;/strong&gt;  as well: it will probably contain important info.
+Let’s build a vocabulary that counts the most frequent spam’s subject words.
+Here’s the 20 most common words:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/subj_spam.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;We’ve already collected many interesting features, however our mails still contain a lot of info that can be useful for our filter.
-For instance, let’s take a look at &lt;strong&gt;how emails, are structured&lt;/strong&gt;. Notice that many of them consist in multipart and, a detailed analysis reveals that spam and ham have in general a different structure:&lt;/p&gt;
+&lt;p&gt;We’ve already collected a lot of interesting features. Still many other  info can be extractred from database!
+For instance, many emails consist in multipart and, a closer analysis reveals that spam and ham have in general a different structure:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/email_type.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -73,8 +72,8 @@ For instance, let’s take a look at &lt;strong&gt;how emails, are structured&lt
 
 &lt;h2 id=&quot;4-preprocessing&quot;&gt;4. Preprocessing&lt;/h2&gt;
 
-&lt;p&gt;Now that We’ve chosen the features to feed our spam-filter with we need to convert them into vectors. 
-For each mail we define a vector of length 507 that stores&lt;/p&gt;
+&lt;p&gt;It’s time to convert all the extracted features into frequency vectors. 
+For each mail we create a long vector (507 entries!) that stores&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;the frequency if the &lt;strong&gt;most frequent 200 ham words&lt;/strong&gt;,&lt;/li&gt;
@@ -83,42 +82,47 @@ For each mail we define a vector of length 507 that stores&lt;/p&gt;
   &lt;li&gt;the &lt;strong&gt;email’s type&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Do not forget to &lt;strong&gt;rescale the features vector&lt;/strong&gt; if we are going to use a Support Vector Machine or a Linear model (as I did) to fit the data.&lt;/p&gt;
+&lt;p&gt;Better to &lt;strong&gt;rescale the features vector&lt;/strong&gt; in order to perform better on the  Support Vector Machine algoritims.&lt;/p&gt;
 
-&lt;p&gt;We can get an idea of how the emails dispose in the features space by using the &lt;em&gt;t-SNE&lt;/em&gt; algorithm that reduces the dimensionality of the features vector while trying to keep similar instances close and dissimilar instances apart.&lt;/p&gt;
+&lt;p&gt;To get an a-priori idea of how the emails dispose in the features space, we use the &lt;em&gt;t-SNE&lt;/em&gt; algorithm that reduces the dimensionality of the features vector while trying to keep similar instances close and dissimilar instances apart.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/clustering.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Notice how ham clusters in several regions, while spam clusters a bit less but lies mainly right part of the plot.&lt;/p&gt;
+&lt;p&gt;Notice how ham clusters in several regions of the pain, while spam spreads mainly in the top-right part of the plot.&lt;/p&gt;
 
-&lt;p&gt;Before proceeding to the training part. let’s tackle the problem of &lt;strong&gt;overfitting&lt;/strong&gt;. Our features vector has a large number of entries (507), moreover many of them are words that appear both in the ham and the spam vocabularies, so there are many repeated entries. If we train an algorithm with this vector most probably we are going to overfit it! To avoid this problem we define a function that randomly selects only a subset of entries, taking care of avoiding repeated features. In this way each classifier we’re going to use, will be trained on a different set of features.&lt;/p&gt;
+&lt;p&gt;Before training any model, let’s tackle the &lt;strong&gt;overfitting&lt;/strong&gt; problem. The features vector we’ve created has a large number of entries and many of them consist in words that appear both in the ham and the spam vocabularies, so there are many repeated entries. Traininig any algorithm with such features will, most probably, overfit the data causiung the algorithm will perform poorly on the new ones. 
+To avoid this problem I’ve created a function that randomly selects only a  subset of features, taking care of removing all the repetitions.
+The subset length is treated as a hyper-parameter that is tuned for each classifier during the training phase.&lt;/p&gt;
 
-&lt;h2 id=&quot;5-training-some-algorithm&quot;&gt;5. Training some algorithm&lt;/h2&gt;
+&lt;h2 id=&quot;5-training-the-classifiers&quot;&gt;5. Training the classifiers&lt;/h2&gt;
 
 &lt;p&gt;Time to train our filter!&lt;/p&gt;
 
-&lt;p&gt;But firstly we need to choose a &lt;strong&gt;training score&lt;/strong&gt;. 
-The simplest thing we could be tempted to use is the &lt;strong&gt;accuracy score&lt;/strong&gt; that just counts the number of wrong predictions&lt;/p&gt;
+&lt;p&gt;But firstly.. What &lt;strong&gt;score&lt;/strong&gt; should the maximise? 
+The simplest thing we can  think is the &lt;strong&gt;accuracy&lt;/strong&gt;, that just counts the number of wrong predictions&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/accuracy.png&quot; width=&quot;225&quot; /&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-This is &lt;strong&gt;not a good score&lt;/strong&gt;, though. 
-In fact, in our dataset only ~ 15% of mails are spam. So, a &lt;em&gt;dumb filter&lt;/em&gt; that classifies everything as ham would score an accuracy of ~ 85% which is already high.&lt;br /&gt;
-Moreover, accuracy considers &lt;em&gt;false positive&lt;/em&gt; (FP) and &lt;em&gt;false negative&lt;/em&gt; (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
-This is to say that instead of accuracy it’s better to use a combination of two additional scores, &lt;strong&gt;precision&lt;/strong&gt; and &lt;strong&gt;recall&lt;/strong&gt;,&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;But, this is &lt;strong&gt;not a good score&lt;/strong&gt;: our dataset consists of  only ~ 15% spam mails, so a &lt;em&gt;dumb filter&lt;/em&gt; that says everything is ham would score ~ 0.85 out of 1! &lt;br /&gt;
+Moreover, accuracy considers &lt;em&gt;false positive&lt;/em&gt; (FP) and &lt;em&gt;false negative&lt;/em&gt; (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But, of course, we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead.
+So instead of accuracy it’s better to use a combination of two additional scores, &lt;strong&gt;precision&lt;/strong&gt; and &lt;strong&gt;recall&lt;/strong&gt;,&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/ainulindale/gh-pages/_images/prec_rec.png&quot; width=&quot;380&quot; /&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-where TP and FP stand respectively for &lt;em&gt;true positive&lt;/em&gt; and &lt;em&gt;false negative&lt;/em&gt;, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
-The &lt;em&gt;harmonic mean&lt;/em&gt; of precision and recall is called &lt;strong&gt;F1 score&lt;/strong&gt; and works better than accuracy. This is the score we are going to maximize in training the spam filter.&lt;/p&gt;
 
-&lt;p&gt;We chose the score, let’s train the classifier! But..&lt;br /&gt;
-What model shall we use? Linear model? Support Vector Machine? Random Forest? Well let’s train them all and &lt;strong&gt;make a voting classifier&lt;/strong&gt;, most probably it’ll perform better than any individual classifier.
-Personally, I’ve trained the following algorithms:&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;where TP and FP stand for &lt;em&gt;true positive&lt;/em&gt; and &lt;em&gt;false negative&lt;/em&gt; (respectively, spam and spam classified as ham). Ideally we want to tune our filter to have the maximum possible precision - 1.0 - while keeping recall the highest possible.
+Therefore, we decide to maximise the &lt;strong&gt;F1 score&lt;/strong&gt;, that is the &lt;em&gt;harmonic mean&lt;/em&gt; of precision and recall.&lt;/p&gt;
+
+&lt;p&gt;We chose the score, what about the classifier?&lt;br /&gt;
+Shall we train Linear model? Support Vector Machine? Random Forest? Well let’s train them all and &lt;strong&gt;make a voting classifier&lt;/strong&gt;, most probably it’ll perform better than any individual classifier.
+Let’s train the following algorithms:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;a &lt;strong&gt;Logistic regressor&lt;/strong&gt;, - a Stochastic Gradient Descent or &lt;strong&gt;SGD classifier&lt;/strong&gt;,&lt;/li&gt;
@@ -127,10 +131,10 @@ Personally, I’ve trained the following algorithms:&lt;/p&gt;
   &lt;li&gt;a Support Vector Machine or &lt;strong&gt;SVM classifer&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;As discussed in the previous section, it’s better to train each classifier with different features sets, smaller than the total features set. This will help not only for lowering the risk of overfitting, but in this way the algorithms will make uncorrelated errors and the voting classifier will perform better.&lt;/p&gt;
+&lt;p&gt;As previously discussed, each classifier is trained on a different feature sets. In this way not only we lower the risk of overfitting, but also the algorithms will make more uncorrelated errors and the voting classifier will perform better.&lt;/p&gt;
 
-&lt;p&gt;To get an idea of how the individual classifiers will generalize to an independent data set we use &lt;em&gt;cross-validation&lt;/em&gt;. In practice, we  divide the train dataset in 5 validation sets, then the classifier is evaluated on each validation set, after it is trained on the rest of the data.
-Here’s the results of each model:&lt;/p&gt;
+&lt;p&gt;To get an idea of how the individual classifiers will generalise to an independent data set, &lt;em&gt;cross-validation&lt;/em&gt; is a good option. It’s a tequinique that consists in dividing the train set in some validation sets (5 is a good choice), and then evaluating the classifier on each validation set, after having trained it on the rest of the data.
+Here’s my results:&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/cv_performances.png&quot; width=&quot;400&quot; /&gt;
@@ -142,13 +146,14 @@ Here’s the results of each model:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/feature_importances.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;It seems that the most important feature is the word &lt;em&gt;click&lt;/em&gt; (8 %) followed by &lt;em&gt;please&lt;/em&gt; and the email types &lt;em&gt;text/html&lt;/em&gt; and &lt;em&gt;text/plain&lt;/em&gt; (all around 5%).&lt;/p&gt;
+&lt;p&gt;So the most important feature is &lt;em&gt;click&lt;/em&gt; (8%) followed by &lt;em&gt;please&lt;/em&gt; and the email types &lt;em&gt;text/html&lt;/em&gt; and &lt;em&gt;text/plain&lt;/em&gt; (all around 5%).&lt;/p&gt;
 
 &lt;h2 id=&quot;6-final-evaluation&quot;&gt;6. Final evaluation&lt;/h2&gt;
 
-&lt;p&gt;We’ve fine-tuned and trained the algorithms, cross validated them on the train dataset and built a voting classifier. It’s time to check the performances on the test dataset to asses the performances of our spam filter!&lt;/p&gt;
+&lt;p&gt;We’ve fine-tuned and trained the algorithms, cross validated them on the train dataset and built a voting classifier. It only reamin to evaluate our filter on the test set in order to asses its performances.&lt;/p&gt;
 
-&lt;p&gt;Of course we firstly need to preprocess the test set generating the features vectors as we did for the training set. Then we can finally asses how the voting classifier behaves on an unknown dataset.&lt;/p&gt;
+&lt;p&gt;Of course do not forget to preprocess the test set  in the same as we did for the training set before! &lt;br /&gt;
+Here’s the perfomances of the voting classifier on an unknown dataset.&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
  &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_voting.png&quot; width=&quot;200&quot; /&gt;
@@ -232,42 +237,28 @@ FAX: 03-3518-3055&lt;/p&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_performances.png&quot; width=&quot;400&quot; /&gt;
 &lt;/div&gt;
 
-&lt;p&gt;This confirms that &lt;strong&gt;the voting classifier scores better than any individual one!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As expected &lt;strong&gt;the voting classifier scores better than any individual one!&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;7-conclusion&quot;&gt;7. Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In this post we’ve exploited a public dataset of raw emails and in order to make a &lt;strong&gt;simple yet powerful spam-filter&lt;/strong&gt; that detects most of the spam that evade the controls of our providers.&lt;/p&gt;
 
-&lt;p&gt;Again, take a look at my GitHub repo (MAKE LINK) and in particular at the  &lt;strong&gt;Jupyter Notebook&lt;/strong&gt; if you wanna inspect the code I used to analyze and preprocess the mails and to train the filter.&lt;/p&gt;
+&lt;p&gt;Again, take a look at my 
+&lt;a href=&quot;https://github.com/LorBordin/Spam_classifier&quot;&gt;GitHub repo&lt;/a&gt;
+and in particular at the  &lt;strong&gt;Jupyter Notebook&lt;/strong&gt; in it, if you want to inspect the code I used to make my filter.&lt;/p&gt;
 
 &lt;!--- comment on periodically update the dictionaries and re-train the voting classifier in order to keep the filter up-to-date with the new spam e-mails. 
 This is a simple task and it isn't time consuming as well. ---&gt;
 
-&lt;p&gt;Finally, I’d like to comment about possible extensions. 
-We’ve developed a spam filter, however the same ideas can applied to other similar tasks; the code as well could be used with little changes.&lt;/p&gt;
+&lt;p&gt;Let’s comment about some possibile generalisations.
+Here we’ve build a spam-filter, however the same ideas can applied to other similar tasks; the code as well could be used with little changes.&lt;/p&gt;
 
 &lt;p&gt;Obvious examples are a &lt;strong&gt;Hate-speach detector&lt;/strong&gt;, that classifies profiles in a social network with little modifications, or a &lt;strong&gt;Clickbait recognizer&lt;/strong&gt;, that detects false advertisement from a website.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:foot&quot;&gt;
-      &lt;p&gt;[Wikipedia/spam] (https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates”&amp;gt;Wikipedia/spam) &lt;a href=&quot;#fnref:foot&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates&quot;&gt;Wikipedia/spam”&amp;gt;Wikipedia/spam repo&lt;/a&gt; &lt;a href=&quot;#fnref:foot&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html">We all face the problem of spam e-mails in our inboxes. Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or ham emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted 1. Fortunately, we don’t see all these messages since the providers we use already contain spam filters that simply delete or reject obvious spam. However, many unwanted messages are still able to avoid these filters and make their way to us. [Wikipedia/spam] (https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates”&amp;gt;Wikipedia/spam) &amp;#8617;</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/18/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-12-18T16:35:18+00:00</published><updated>2019-12-18T16:35:18+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/18/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/18/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Where &lt;code class=&quot;highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html">We all face the problem of spam e-mails in our inboxes. Data show that the total volume of spam mails has been consistently growing in time to the point that nowadays it overtakes the amount of ordinary or ham emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted 1. Most of the spam is already fitered out by our providers, but still, quite a few spam emails are able to evade these filters and make their way to us. To better detect the unwanted spam the best way is probably to train an ad hoc filter, tuned on our own mails. Contrary to what you could think this isn’t a hard task which can be realized with a little of machine learning. Wikipedia/spam”&amp;gt;Wikipedia/spam repo &amp;#8617;</summary></entry></feed>

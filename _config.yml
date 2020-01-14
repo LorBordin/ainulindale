@@ -20,12 +20,12 @@
 
 title: Ainulindalë
 email: lorenzo.bordin@nottingham.ac.uk
-description: This is Lorenzo's blog, Tolkien appasionate and theoretical phisicist. After 6 years in the academia he is now a  data scientist.
+description: I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.
 baseurl: "/ainulindale" # the subpath of your site, e.g. /blog
 url: "lorbordin.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: None
 github_username:  LorBordin
 linkedin_username: lorenzo-bordin-694b6812a
+
 
 # Build settings
 theme: minima

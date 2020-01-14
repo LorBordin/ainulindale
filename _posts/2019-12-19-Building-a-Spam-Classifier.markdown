@@ -7,26 +7,26 @@ categories: jekyll update
 
 
 We all face the problem of spam e-mails in our inboxes.
-Data show that the total volume of spam mails has been consistently growing in time to the point that it overtakes the amount of ordinary or _ham_ emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted [^foot].
-Fortunately, we don't see all these messages since the providers we use already contain spam filters that simply delete or reject _obvious spam_.
-However, many unwanted messages are still able to avoid these filters and make their way to us.
+Data show that the total volume of spam mails has been consistently growing in time to the point that nowadays it overtakes the amount of ordinary or _ham_ emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted [^foot].
+Most of the spam is already fitered out by our providers, but
+still, quite a few spam emails are able to evade these filters and make their way to us.
+ 
+To better detect the unwanted spam the best way is probably to train an _ad hoc_ filter, tuned on our own mails. 
+Contrary to what you could think this isn't a hard task which can be realized with a little of __machine learning__.
 
-To better filter out all the unwanted spam one can build and tune an _ad hoc_ filter using his own mails. This is a simple task that can be realized using some __machine learning__ technique.
-As for any machine learning project the hardest part is the preprocessing that one needs to do before training the algorithm. 
-In this post I will describe in words how analyse an email dataset in order to select and extract the best features that will be be used to build a simple yet powerful spam filter. 
+In this post I will describe all the steps and analysis I've done, in order to build my personal spam-fitler.
+Given that the important concepts are general and do not rely on any programming languag, here I do not show any code. 
+If you're interested in the code - written in __Python__ - you can it you can take a look at the Jupyter notebook I've used to create this post. Here'e the link to my <a href="https://github.com/LorBordin/Spam_classifier">GitHub repo</a>. 
 
-My filter is written in __python__ however the ideas I describe are very general .
-For this reason I do not share any snippet in this post.
-If you are interested in the code, you take a look at the Jupyter notebook in my [GitHub repo] (https://github.com/LorBordin/Spam-Classifier).
+[^foot]: <a href="https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates">Wikipedia/spam">Wikipedia/spam repo</a>
 
-[^foot]: [Wikipedia/spam] (https://en.wikipedia.org/wiki/Email_spam#Statistics_and_estimates">Wikipedia/spam)
 
 
 ## 1. Getting the data
 
-The best data we can use to build a spam filter __tuned for our (or our company) needs__  are our own mails. Getting the data in this way is easy, in my case I built up a quite large database in few months.
+As previously said, to build a spam-filter __tuned for our (or our company) needs__  one should use her/his own mails. Getting the training data in this way is easy, in my case I built up a quite large database in few months.
 
-For privacy reasons, I will not share my private dataset, but we will work on the <a href="https://spamassassin.apache.org/old/publiccorpus/">Apache SpamAssassin’s public datasets</a>. It's the perfect set to start with: no pre-processing at all has been made the dataset that consists in _raw_ emails, the we get from our mail-box.
+However, instead of sharing my personal messages, to make this post I've opted for the <a href="https://spamassassin.apache.org/old/publiccorpus/">Apache SpamAssassin’s public datasets</a>. It's the perfect set to start with: no pre-processing at all has been made on it, the dataset consists in _raw_ emails, the  same we get from the mail-box.
 
 The SpamAssasins's dataset consists in three different compressed files that contain:
 
@@ -34,7 +34,7 @@ The SpamAssasins's dataset consists in three different compressed files that con
 - 250 __hard ham__ e-mails, 
 - 500 __spam__ e-mails. 
 
-After having downloaded the content, the first thing we have to do before starting any analysis is to split our dataset into a __train__ and __test__ set.
+The first thing we have to do before starting any analysis is to split our dataset into a __train__ and __test__ set.
 In practice we label the emails with their class (ham or spam), then we merge the sets together, shuffle and finally split the dataset in two: a bigger one (80% of the mail) and a smaller set for the final evaluation (the test set).
 
 
@@ -44,40 +44,39 @@ In practice we label the emails with their class (ham or spam), then we merge th
 Let's focus on the train set. We need to extract some features to train our spam-filter. A good thing to do is to look at the email content. 
 Spam mails often consists in advertising messages, so they might contain some common word as _money_,  _opportunity_, _loan_ or _mortage_. 
 
-It is therefore important to extract the words content from each mail and build 
+So we want to extract the words content from each mail and build 
 a list with the most common spam mails.
 
-Let's start with the words extraction. We need to implement the following parsing operations:
-
+Let's start with the words extraction part. To avoid repetitions it's better to firstly parse the mails' content doing the following operations:
  
 - remove all the html tags, 
 - remove punctuation, 
 - covert words in lower-case, 
 - replace numbers with _NUMBER_ and urls with _URL_. 
 
-In python, there are some packages which are very useful for this purpose. Personally, I used  `email ` to extract the body's content from each email,  `regex ` and  `beautifulsoup ` to parse it. 
+If you use _python_, some packages like `email`, `regex` and  `beautifulsoup` are very useful for this purpose.
 
 
 
 ## 3. Data Analysis
 
-Once we've extracted the words we have to __count their frequency__.
-For this purpose let's build 2 vocabularies that count the frequency hammy and spammy words.
-We do so taking care of __removing the english common stopwords__, i.e. words like _the_, _is_, _at_, ..., which are not useful to understand the purpose of an email.
+We've extracted the words let's __count their frequency__.
+It is convenient to build 2 different vocabularies that count the frequency hammy and spammy words.
+In doing so don't forget to __remove the english common stopwords__ like _the_, _is_, _at_, ..., which are not useful to understand the content of the mail.
 Here's the 20 most common ham and spam words in my train dataset:
 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/words_freq.png" alt="">
 
-Good! Words like __free__, __money__, __click__ looks really spammy words!
+Good! Notice Words like __free__, __money__, __click__ that appear often only in spam mails. They look like really spammy words!
 
-Not only the mail's content but also the __mail's subjcet__ will probably contain important info.
-Better make a vocabulary for spam's subject words then.
-Here's the most common spam subject 20 words:
+Let's parse the __mails' subjcet__  as well: it will probably contain important info.
+Let's build a vocabulary that counts the most frequent spam's subject words.
+Here's the 20 most common words:
 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/subj_spam.png" alt="">
 
-We've already collected many interesting features, however our mails still contain a lot of info that can be useful for our filter.
-For instance, let's take a look at __how emails, are structured__. Notice that many of them consist in multipart and, a detailed analysis reveals that spam and ham have in general a different structure: 
+We've already collected a lot of interesting features. Still many other  info can be extractred from database!
+For instance, many emails consist in multipart and, a closer analysis reveals that spam and ham have in general a different structure: 
 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/email_type.png" alt="">
 
@@ -87,8 +86,8 @@ There's a lot of _plain text_ in the ham dataset, while _html_ is more frequent 
 
 ## 4. Preprocessing
 
-Now that We've chosen the features to feed our spam-filter with we need to convert them into vectors. 
-For each mail we define a vector of length 507 that stores
+It's time to convert all the extracted features into frequency vectors. 
+For each mail we create a long vector (507 entries!) that stores
 
  
 - the frequency if the __most frequent 200 ham words__, 
@@ -96,22 +95,26 @@ For each mail we define a vector of length 507 that stores
 - the frequency of the __most frequent 50 subject words__, 
 - the __email's type__.
 
-Do not forget to __rescale the features vector__ if we are going to use a Support Vector Machine or a Linear model (as I did) to fit the data.
+Better to __rescale the features vector__ in order to perform better on the  Support Vector Machine algoritims.
 
-We can get an idea of how the emails dispose in the features space by using the _t-SNE_ algorithm that reduces the dimensionality of the features vector while trying to keep similar instances close and dissimilar instances apart. 
+To get an a-priori idea of how the emails dispose in the features space, we use the _t-SNE_ algorithm that reduces the dimensionality of the features vector while trying to keep similar instances close and dissimilar instances apart. 
 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/clustering.png" alt="">
 
-Notice how ham clusters in several regions, while spam clusters a bit less but lies mainly right part of the plot.
+Notice how ham clusters in several regions of the pain, while spam spreads mainly in the top-right part of the plot.
 
-Before proceeding to the training part. let's tackle the problem of __overfitting__. Our features vector has a large number of entries (507), moreover many of them are words that appear both in the ham and the spam vocabularies, so there are many repeated entries. If we train an algorithm with this vector most probably we are going to overfit it! To avoid this problem we define a function that randomly selects only a subset of entries, taking care of avoiding repeated features. In this way each classifier we're going to use, will be trained on a different set of features.
+Before training any model, let's tackle the __overfitting__ problem. The features vector we've created has a large number of entries and many of them consist in words that appear both in the ham and the spam vocabularies, so there are many repeated entries. Traininig any algorithm with such features will, most probably, overfit the data causiung the algorithm will perform poorly on the new ones. 
+To avoid this problem I've created a function that randomly selects only a  subset of features, taking care of removing all the repetitions.
+The subset length is treated as a hyper-parameter that is tuned for each classifier during the training phase. 
 
-## 5. Training some algorithm
+
+
+## 5. Training the classifiers
 
 Time to train our filter! 
 
-But firstly we need to choose a __training score__. 
-The simplest thing we could be tempted to use is the __accuracy score__ that just counts the number of wrong predictions  
+But firstly.. What __score__ should the maximise? 
+The simplest thing we can  think is the __accuracy__, that just counts the number of wrong predictions  
 
 
 <div align="center">
@@ -120,10 +123,9 @@ The simplest thing we could be tempted to use is the __accuracy score__ that jus
 
 <br>
 
-This is __not a good score__, though. 
-In fact, in our dataset only ~ 15% of mails are spam. So, a _dumb filter_ that classifies everything as ham would score an accuracy of ~ 85% which is already high.<br>
-Moreover, accuracy considers _false positive_ (FP) and _false negative_ (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But of course we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead!
-This is to say that instead of accuracy it's better to use a combination of two additional scores, __precision__ and __recall__, 
+But, this is __not a good score__: our dataset consists of  only ~ 15% spam mails, so a _dumb filter_ that says everything is ham would score ~ 0.85 out of 1! <br>
+Moreover, accuracy considers _false positive_ (FP) and _false negative_ (FN) equally important. In other words it makes no distinction if ham is classified as spam (FP), or if spam is classified as ham (FN). But, of course, we care more that our spam filter does not filter out ham messages, better if it lets some spam pass instead.
+So instead of accuracy it's better to use a combination of two additional scores, __precision__ and __recall__, 
 
 
 <div align="center">
@@ -132,12 +134,12 @@ This is to say that instead of accuracy it's better to use a combination of two 
 
 <br>
 
-where TP and FP stand respectively for _true positive_ and _false negative_, which are respectively, spam and spam classified as ham. Ideally we want to tune our filter to have the maximum possible precision, i.e. 1, and the highest recall.
-The _harmonic mean_ of precision and recall is called __F1 score__ and works better than accuracy. This is the score we are going to maximize in training the spam filter. 
+where TP and FP stand for _true positive_ and _false negative_ (respectively, spam and spam classified as ham). Ideally we want to tune our filter to have the maximum possible precision - 1.0 - while keeping recall the highest possible.
+Therefore, we decide to maximise the __F1 score__, that is the _harmonic mean_ of precision and recall. 
 
-We chose the score, let's train the classifier! But..<br>
-What model shall we use? Linear model? Support Vector Machine? Random Forest? Well let's train them all and __make a voting classifier__, most probably it'll perform better than any individual classifier.
-Personally, I've trained the following algorithms:
+We chose the score, what about the classifier?<br>
+Shall we train Linear model? Support Vector Machine? Random Forest? Well let's train them all and __make a voting classifier__, most probably it'll perform better than any individual classifier.
+Let's train the following algorithms:
 
  
 - a __Logistic regressor__, - a Stochastic Gradient Descent or __SGD classifier__, 
@@ -145,10 +147,10 @@ Personally, I've trained the following algorithms:
 - a __K Neighbors classifier__, 
 - a Support Vector Machine or __SVM classifer__. 
 
-As discussed in the previous section, it's better to train each classifier with different features sets, smaller than the total features set. This will help not only for lowering the risk of overfitting, but in this way the algorithms will make uncorrelated errors and the voting classifier will perform better. 
+As previously discussed, each classifier is trained on a different feature sets. In this way not only we lower the risk of overfitting, but also the algorithms will make more uncorrelated errors and the voting classifier will perform better. 
 
-To get an idea of how the individual classifiers will generalize to an independent data set we use _cross-validation_. In practice, we  divide the train dataset in 5 validation sets, then the classifier is evaluated on each validation set, after it is trained on the rest of the data.
-Here's the results of each model:
+To get an idea of how the individual classifiers will generalise to an independent data set, _cross-validation_ is a good option. It's a tequinique that consists in dividing the train set in some validation sets (5 is a good choice), and then evaluating the classifier on each validation set, after having trained it on the rest of the data.
+Here's my results:
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/cv_performances.png" width="400">
@@ -160,15 +162,16 @@ A great quality of Random Forests is that they make it easy to measure the relat
 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/feature_importances.png" alt="">
 
-It seems that the most important feature is the word _click_ (8 %) followed by _please_ and the email types _text/html_ and _text/plain_ (all around 5%).
+So the most important feature is _click_ (8%) followed by _please_ and the email types _text/html_ and _text/plain_ (all around 5%).
 
 
 
 ## 6. Final evaluation
 
-We've fine-tuned and trained the algorithms, cross validated them on the train dataset and built a voting classifier. It's time to check the performances on the test dataset to asses the performances of our spam filter!
+We've fine-tuned and trained the algorithms, cross validated them on the train dataset and built a voting classifier. It only reamin to evaluate our filter on the test set in order to asses its performances.
 
-Of course we firstly need to preprocess the test set generating the features vectors as we did for the training set. Then we can finally asses how the voting classifier behaves on an unknown dataset.
+Of course do not forget to preprocess the test set  in the same as we did for the training set before!   
+Here's the perfomances of the voting classifier on an unknown dataset.
 
 <div align="center">
  <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_voting.png" width="200">
@@ -250,19 +253,21 @@ Before concluding, let's compare the performances of the individual classifiers 
 <img src="https://raw.githubusercontent.com/LorBordin/Spam_classifier/master/images/test_performances.png" width="400">
 </div> 
 
-This confirms that __the voting classifier scores better than any individual one!__ 
+As expected __the voting classifier scores better than any individual one!__ 
 
 ## 7. Conclusion
 
 In this post we've exploited a public dataset of raw emails and in order to make a __simple yet powerful spam-filter__ that detects most of the spam that evade the controls of our providers.  
 
-Again, take a look at my GitHub repo (MAKE LINK) and in particular at the  __Jupyter Notebook__ if you wanna inspect the code I used to analyze and preprocess the mails and to train the filter.
+Again, take a look at my 
+<a href="https://github.com/LorBordin/Spam_classifier">GitHub repo</a>
+and in particular at the  __Jupyter Notebook__ in it, if you want to inspect the code I used to make my filter.
 
 <!--- comment on periodically update the dictionaries and re-train the voting classifier in order to keep the filter up-to-date with the new spam e-mails. 
 This is a simple task and it isn't time consuming as well. --->
 
-Finally, I'd like to comment about possible extensions. 
-We've developed a spam filter, however the same ideas can applied to other similar tasks; the code as well could be used with little changes. 
+Let's comment about some possibile generalisations.
+Here we've build a spam-filter, however the same ideas can applied to other similar tasks; the code as well could be used with little changes. 
 
 Obvious examples are a __Hate-speach detector__, that classifies profiles in a social network with little modifications, or a __Clickbait recognizer__, that detects false advertisement from a website.
 
