@@ -1,4 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-14T08:30:18+01:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</subtitle><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+01:00</published><updated>2019-12-19T00:00:00+01:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-01-29T14:11:23+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</subtitle><entry><title type="html">3 Things on Clickbait You’ll Never Believe</title><link href="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html" rel="alternate" type="text/html" title="3 Things on Clickbait You'll Never Believe" /><published>2020-01-23T00:00:00+00:00</published><updated>2020-01-23T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html">&lt;p&gt;&lt;strong&gt;Clickbaiting&lt;/strong&gt; is the intenctional act of over-promising or otherwise misrepresenting what you’re going to find when you read a story on the web.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clickbt_ex_1.png&quot; width=&quot;200&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clickbt_ex_2.png&quot; width=&quot;180&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clickbt_ex_3.png&quot; width=&quot;190&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Headlines, like the one above, work on our brain in a very subtle way. Their aim is to exploit the &lt;em&gt;curiosity gap&lt;/em&gt;, providing just enough information to make the reader curious, but not enough to satisfy her/his curiosity without clicking through to the linked content.&lt;/p&gt;
+
+&lt;p&gt;Over time, clickbaiting can get potentially dangerous. 
+Studies show that not only readers get addicited to captivating headlines, but they  prevent people to come up with their own mental models.
+In addition to these, clickbait articles increseangly often do not deliver any substance and because of their catchy titles, usually very emotionals, they tend to make readers less objective.&lt;/p&gt;
+
+&lt;p&gt;So if they are so distruptive in nature, why are they so used? Of course, there’s only one reason for that: &lt;strong&gt;money&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;On-line news websites are competing for your attention because they need it to thrive in today’s economy. Our interactions on these platforms generate invaluable data without which the machine intelligence that makes them so intuitive and personalized would fail to exist.&lt;/p&gt;
+
+&lt;p&gt;All this comes at the expense of the depletion of real journalism. Important and renowned newspapers have starded to produce clickbait contents as well.&lt;/p&gt;
+
+&lt;p&gt;To better understand this phenomenon in journalism I have decided to carry out a quantitative analysis to see how much clickbait affects ordinary journalism. 
+I’ve selected headlines from some of the most famous US and UK newspapers.
+Data show the raising of the clickbait phenomenon over time.&lt;/p&gt;
+
+&lt;p&gt;Stay tuned, the results I found will shock you!&lt;/p&gt;
+
+&lt;h2 id=&quot;a-clickbait-detector&quot;&gt;A Clickbait Detector&lt;/h2&gt;
+
+&lt;p&gt;Classifing tousands of headlines would not be possible without the help of the artificial intelligence. 
+Therefore, I’ve firstly developed a &lt;strong&gt;Clickbait detector&lt;/strong&gt; that uses &lt;strong&gt;machine learning&lt;/strong&gt;  to classify headlines.&lt;/p&gt;
+
+&lt;p&gt;As training data I’ve used the &lt;strong&gt;AOSSIE Click Bait Dataset&lt;/strong&gt;, publicly available on &lt;a href=&quot;https://www.kaggle.com/ad6398/aossie-click-bait-dataset&quot;&gt;Kaggle&lt;/a&gt;: it consists in a huge set of labelled news titles, collected from variuos websites like &lt;em&gt;Buzzfeed&lt;/em&gt; or The &lt;em&gt;New York Times&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Inspired by this research paper, &lt;a href=&quot;https://arxiv.org/abs/1610.09786&quot;&gt;Stop Clickbait: Detecting and Preventing Clickbaits in Online News Media&lt;/a&gt;, I’ve used some NLP tools to extract the following training features from each headline:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;lemmatised words count,&lt;/li&gt;
+  &lt;li&gt;lenght of title,&lt;/li&gt;
+  &lt;li&gt;stopwords ratio,&lt;/li&gt;
+  &lt;li&gt;contractions ratio.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then, I’ve trained a Random Forest Classifier. 
+If you’re courious to see how the detector works, take a look at my code! Here’s the &lt;a href=&quot;https://github.com/LorBordin/clickbait_analysis&quot;&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-raising-of-clickbait-over-time&quot;&gt;The Raising of Clickbait Over Time&lt;/h2&gt;
+
+&lt;p&gt;I begun my analysis studing the trend of clickbait headlines over time. I’ve used as database the one provided by the &lt;em&gt;New York Times&lt;/em&gt; (NYT) Archive API. 
+It provides data of all the articles that appeard in the NYT since 1851.&lt;/p&gt;
+
+&lt;p&gt;The API makes collecting headlines relatively easy. 
+I’ve collected all the those entries with the attribute &lt;code class=&quot;highlighter-rouge&quot;&gt;type_of_material&lt;/code&gt; labelled as &lt;code class=&quot;highlighter-rouge&quot;&gt;News&lt;/code&gt;, then I’ve classified them with my clickbait detector. 
+Here’s some titles classified as clickbait with the highest probability:&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clckbt_headlines.png&quot; width=&quot;600&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Very good! They all have the typical structure of the clickbait headlines like or &lt;em&gt;numbers at the begin&lt;/em&gt;, they contain catchy phrases as &lt;em&gt;that will make/keep you&lt;/em&gt;,  and so on. 
+These are instead some of the titles with the lowest probability of being clickbait:&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/no_clckbt_headlines.png&quot; width=&quot;600&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Interestingly, also some headlines with the lowest probability start with a number, a feature usually associated to clickbait titles.
+However it is clear these titles are not clickbaits.&lt;/p&gt;
+
+&lt;p&gt;Ok, let’s see now how the number of clickbait titles varies in time 
+This plot shows the ratio of clickbait over the whole number of articles published each month since 2008.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clckbt_ratio_VS_time.png&quot; width=&quot;780&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The proportion of clickbait articles stays constant around 10% up to 2016, then it suddenly raises and in just 3 years it doubles.
+In 2019 about 25% of news headlines were clickbait!&lt;/p&gt;
+
+&lt;h3 id=&quot;web-vs-printed-version&quot;&gt;Web vs Printed Version&lt;/h3&gt;
+
+&lt;p&gt;A confirmation of the fact that clickbait is mainly a web phenomenon can be found in looking at the printed version of the headlines that appear on the web page. It can be found, in the NYT Archive API under the attribute `print_headline.&lt;/p&gt;
+
+&lt;p&gt;Web and print versions are often different, and the analysis shows that __
+&lt;strong&gt;many times headlines in the printed version are not clickbait, while on the web they are&lt;/strong&gt;. Here some examples:&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/web_vs_print.png&quot; width=&quot;750&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Take a look at the notebook &lt;a href=&quot;https://github.com/LorBordin/clickbait_analysis/blob/master/NYT_analysis.ipynb&quot;&gt;NYT_analysis&lt;/a&gt; in my GitHub repo for an explanation on how I did the analysis and play with it.&lt;/p&gt;
+
+&lt;h2 id=&quot;clickbait-on-uk-journals&quot;&gt;Clickbait on UK journals&lt;/h2&gt;
+
+&lt;p&gt;To be finished …&lt;/p&gt;
+
+&lt;!--- ### A closer look into The Guardian ---&gt;</content><author><name></name></author><summary type="html">Clickbaiting is the intenctional act of over-promising or otherwise misrepresenting what you’re going to find when you read a story on the web.</summary></entry><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+00:00</published><updated>2019-12-19T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
 Data show that the total volume of spam mails has been consistently growing in time to the point that nowadays it overtakes the amount of ordinary or &lt;em&gt;ham&lt;/em&gt; emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted &lt;sup id=&quot;fnref:foot&quot;&gt;&lt;a href=&quot;#fn:foot&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
 Most of the spam is already fitered out by our providers, but
 still, quite a few spam emails are able to evade these filters and make their way to us.&lt;/p&gt;
