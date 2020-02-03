@@ -25,11 +25,11 @@ So if they are so disruptive in nature, why are they so used? Of course, there's
 News websites are competing for our attention because they need it to thrive in today’s economy. Our interactions on these platforms generate invaluable data without which the machine intelligence that makes them so intuitive and personalised would fail to exist.
 All this comes at the expense of the depletion of real journalism. Important and renowned newspapers have started to produce clickbait contents as well.
 
-To better understand this phenomenon I have carried out an analysis, quantifying the amount of clickbait contents in mordern journalism. 
-I heve collected headlines from some of the most famous US and UK newspapers.
+To better understand this phenomenon I have carried out an analysis, quantifying the amount of clickbait contents in modern journalism. 
+I have collected headlines from some of the most famous US and UK newspapers.
 Data show the raising of the clickbait phenomenon over time.
 
-All the details of my analysis are available in my [GithHub repo] (https://github.com/LorBordin/clickbait_analysis). 
+All the details of my analysis are available in my [GitHub repo] (https://github.com/LorBordin/clickbait_analysis). 
 
 
 
@@ -65,7 +65,7 @@ As a check that the detector works, here's some titles classified as clickbait w
 </div>
 <br>
 
-Notice their typical structure like __numbers at the begin of the title__, or __catchy  exporessions__ as  _that will make/keep you_ , and so on.  
+Notice their typical structure like __numbers at the begin of the title__, or __catchy  expressions as  _that will make/keep you_ , and so on.  
 These are, instead, some of the titles with the least probability of being clickbait:
 
 <div align="center">
@@ -84,7 +84,7 @@ Having verified the detector works, I have used it to evaluate the amount of cli
 <br>
 
 The plot shows the percentage of clickbait headlines over time. 
-It is interesting to notice that is stays constant until 2016, than it suddenly raises doubling its value in about 3 years.
+It is interesting to notice that is stays constant until 2016, then it suddenly raises doubling its value in about 3 years.
 In 2019 about 25% of news headlines were clickbait! 
 
 
@@ -92,7 +92,7 @@ In 2019 about 25% of news headlines were clickbait!
 
 Clickbait headlines is mainly a web phenomenon. 
 A confirmation of this can be found by comparing the printed version of the same headline that appears in the website.
-This is made possible thanks to the attribute `print_headline` that many headilines in the NYT API posses.
+This is made possible thanks to the attribute `print_headline` that many headlines in the NYT API posses.
 
 The analysis shows that quite often __headlines are clickbait in the web version but  not in the printed one__. For instance,
 
@@ -103,14 +103,14 @@ The analysis shows that quite often __headlines are clickbait in the web version
 
 ## A Common Trend?
 
-The analysis on the NYT shows a sudden increase of the clickbait content oin recent times.
-Is this trend common in other newspaprs as well, or is it spacific of the NYT?
-To answer this question I have collected headlines from 3 Brittish news websites: __The Guardian__,  __BBC news__ and __The telegraph__, I have also included in my analysis the famous tabloid __Dailymail__.
+The analysis on the NYT shows a sudden increase of the clickbait content in recent times.
+Is this trend common in other newspapers as well, or is it specific of the NYT?
+To answer this question I have collected headlines from 3 British news websites: __The Guardian__,  __BBC news__ and __The telegraph__, I have also included in my analysis the famous tabloid __Dailymail__.
 
 Unfortunately, I'm not aware of any API, therefore I had to gently scrap the websites for about two weeks. 
-This short period does not allow me to quantify the rasing of the phenomenon over time, but I could just estimate the current ammount of clickbait contents.
+This short period does not allow me to quantify the rising of the phenomenon over time, but I could just estimate the current amount of clickbait contents.
 
-Overall, the  __percentage of clickbait headlines is about 20%__, comparable with the NYT. It seems that also in the Old Continent, newpapers use similar strategies to attract readers. 
+Overall, the  __percentage of clickbait headlines is about 20%__, comparable with the NYT. It seems that also in the Old Continent, newspapers use similar strategies to attract readers. 
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clckbt_ex_uk_journals.png" width="600">
@@ -128,7 +128,7 @@ Even if on average the percentage of clickbaits is similar to the NYT one, it va
 <br>
 
 This is a very interesting plot: it shows that individual websites adopted different policies regarding clickbaits. Both _The Guardian_ and the _Dailymail_ seem to have a poor clickbait content if compared with the _BBC news_ and especially at _The Telegraph_, where the percentage grows up to 30%. 
-However, it is important to mention that the Detector I trained and used, is well suited for "standard clickbait" (that is short titles, cathcy phrases, presence of many abbreviations ...), but it can get in trouble if headlines become very long and verbose as in Dailymail.
+However, it is important to mention that the Detector I trained and used, is well suited for "standard clickbait" (that is short titles, catchy phrases, presence of many abbreviations ...), but it can get in trouble if headlines become very long and verbose as in Dailymail.
 
 
 ## Conclusion
@@ -137,5 +137,5 @@ The analysis carried out points out the existence of a real emergency in the mod
 Bad journalism does not only affect hoax websites, whose only purpose is to attract people to get economic reward, but also famous and trusted news publications. 
 
 To fight against this crisis, the developing of new tools like news filters that hide unwanted contents is
-probaly one of the most effective weapons we have at our disposal.
+probably one of the most effective weapons we have at our disposal.
 Together with new tools, however, educating people about the negative effects that clickbait have, not only on the media but on themselves as well, will be crucial. 
