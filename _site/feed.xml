@@ -1,4 +1,159 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-02-03T14:05:47+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</subtitle><entry><title type="html">3 Things on Clickbait You Won’t Believe</title><link href="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html" rel="alternate" type="text/html" title="3 Things on Clickbait You Won't Believe" /><published>2020-01-23T00:00:00+00:00</published><updated>2020-01-23T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html">&lt;p&gt;&lt;strong&gt;Clickbaiting&lt;/strong&gt; is the intentional act of over-promising or otherwise misrepresenting what you’re going to find when you read a story on the web.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/ainulindale/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/ainulindale/" rel="alternate" type="text/html" /><updated>2020-03-20T09:37:41+00:00</updated><id>http://localhost:4000/ainulindale/feed.xml</id><title type="html">Ainulindalë</title><subtitle>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</subtitle><entry><title type="html">Airbnb vs Booking</title><link href="http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html" rel="alternate" type="text/html" title="Airbnb vs Booking" /><published>2020-03-16T00:00:00+00:00</published><updated>2020-03-16T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html">&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/holy_island.jpg&quot; height=&quot;200&quot; width=&quot;1000&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dreaming a holiday? A weekend escape? 
+Nothing have been easier to plan nowadays, thanks to many online platforms that offer wonderful stayings and great experiences!&lt;/p&gt;
+
+&lt;p&gt;Few weeks ago, together with some friends, we decided to do a trekking along the wonderful &lt;a href=&quot;https://en.wikipedia.org/wiki/Northumberland_Coast&quot;&gt;Northumberland coast&lt;/a&gt; and explore some its magnificent castles.
+Planning the holiday we were in doubt where to look for our stayings. 
+Personally, I’ve always used &lt;em&gt;Airbnb&lt;/em&gt; but other friends were claiming &lt;em&gt;Booking.com&lt;/em&gt; is better, being more popular and thus having better options.
+Personally, I had the opposite opinion.. So we made a bet!
+But how to figure out which platform is more popular?&lt;/p&gt;
+
+&lt;p&gt;Google provides a great tool for this: &lt;em&gt;Google Trends&lt;/em&gt;.
+Not only it knows about what’s popular and what’s not in different countries, but it can tell al lot about people’s habit.
+Besides looking for a answer for my bet, I’ve also decided to play a bit with is and figure out some people’s habits on travels and holydays.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-data&quot;&gt;The data&lt;/h1&gt;
+
+&lt;p&gt;The Google trends website analyses the popularity of top search queries in Google Search across various countries and allows to compare different searches providing the historical data on the popularity of each query. 
+To answer my question I’ve gathered the popularity data of the Airbnb and Booking.com platforms since 2008.
+To easily download, access and analyse the data, I’ve used its &lt;a href=&quot;https://pypi.org/project/pytrends/1.1.3/&quot;&gt;Unofficial API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Important.&lt;/strong&gt;  Google Trends is a great tool for data analysis but in order to make reliable predictions it’s crucial to understand what kind of data it provides. 
+Google Trends  data are not a direct representation of the query’s search volume over time.
+What it displays is the &lt;strong&gt;relative popularity&lt;/strong&gt; of a search query, normalised by the total searches of the geography and time range it represents.
+This allows to compare the popularity of a query in different areas with different search volumes, but this also means that one cannot compare two different time series. 
+Comparisons can only be made for the same time interval and only using the specific tool provided by Google Trends.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-airbnb-liftoff&quot;&gt;The Airbnb liftoff&lt;/h1&gt;
+
+&lt;p&gt;The following plot shows the relative popularity between Airbnb and Booking.com. 
+The first thing that stands out is a high correlation between the popularity of the two queries: both trends show, especially in the last years, a clear seasonality.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/hist_trend_UK.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This oscillatory behaviour partially masks the underlying trends, nonetheless the plot undoubtedly answers my question. 
+While at the begin of 2008 Airbnb - that had just started operating - couldn’t compete with Booking then, from 2014 its popularity started to grow very fast and eventually surpassed Booking.com in 2017-2018.&lt;/p&gt;
+
+&lt;p&gt;The plot, however tell us way more things than this. 
+For instance we see that since 2015, there are two main peaks in the yearly popularity of both the queries. 
+The highest happens in summer, but there is a second one, centred at the begin of the year that raises every year. 
+Looks like that before 2015 a winter holiday was not so common as now.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s take a closer look at all the possible seasonalities.&lt;/p&gt;
+
+&lt;h1 id=&quot;yearly-weekly-and-daily-seasonalities&quot;&gt;Yearly, Weekly and daily seasonalities&lt;/h1&gt;
+
+&lt;p&gt;The previous plot is coarse grained,  data are sampled monthly. 
+Selecting smaller time intervals we finer samplings, in this way also weekly and daily seasonalities can be detected. 
+I have plotted all the seasonalities I found in the series of graphs below. 
+Again there is a strong correlation between Airbnb and Booking.com queries: people google them in similar time slots.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_month.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first plot is about the popularity per month of the year. 
+There are two peaks in the popularity distribution, the first centred in January and a second one that reaches its maximum in July. 
+These are, of course the two main periods when people go on holiday.
+During Autumn the both trends drop and reach their minimum in December.
+Assuming the trends are directly correlated with how much the people travel, we can say that Autumn is the period of the year where people travel the less.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_week.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The second plot is similar to the first but now popularity is by week of the year. 
+This allows to resolve additional peaks related to specific periods of holidays.
+For instance we can notice a small increase (especially on the Airbnb query) on the 7th week of the year - late February - is it due to Carnival?
+Another local maximum happens to be on the 20th-21st week, this is surely due to the Bank Holiday of the 25th of May. 
+Finally, there’s a huge spike on the penultime week of the year: lingerers are making the last arrangements for New Years’s Eve!&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_day.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s explore now the popularity of the two queery by day of the week. 
+This is the plot in which the two queries show the less correlation. 
+While the Booking’s popularity is almost constant during the whole week, the Airbnb’s one is biggest on Sunday and constantly decreases to reach its minimum on Friday. 
+This makes me wonder that perhaps Booking.com is more used to plan work travels than Airbnb.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_hour.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;My previous hypothesis finds further evidence by looking at hourly popularity.
+In fact, while the Airbnb query distribution peaks around 13 - lunch break - and after 18, the Booking.com distribution stays more or less constant during the whole working hours.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-whole-world&quot;&gt;The Whole World&lt;/h1&gt;
+
+&lt;p&gt;In Great Britain &lt;em&gt;Airbnb&lt;/em&gt; is more popular than &lt;em&gt;Booking.com&lt;/em&gt;. 
+What about the rest of the world?
+Let’s ask Google Trends! 
+Here’s the answer:&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/hist_trend_world.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Booking.com is winning, even if Airbnb looks very close to surpass it. 
+Will it eventually happen? 
+We answer this analysing the time series and making some forecast. 
+The package &lt;code class=&quot;highlighter-rouge&quot;&gt;fbprophet&lt;/code&gt; is the perfect tool for this task: it is designed to analyse time series, decompose them into trends plus seasonalities and make predictions.&lt;/p&gt;
+
+&lt;p&gt;In the picture below I’ve plotted the results of &lt;code class=&quot;highlighter-rouge&quot;&gt;fbprophet&lt;/code&gt;’s analisys.&lt;/p&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/decomposition.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first two plots from top show, respectively, the trend and the yearly seasonality of both the platforms. 
+The bottom one is the sum of the two. 
+The black vertical line corresponds to the 15th of March, the date from which the forecasts begin.&lt;/p&gt;
+
+&lt;p&gt;The analysis reveals that while Airbnb’s trend is increasing, the Booking.com one is dropping. 
+According to the forecasts, Booking’s trend is going to drop below Airbnb’s one in the first half of 2020. 
+To these, we must take into account the seasonalities as well, that shift the date of the surpass towards the second half of the year.&lt;/p&gt;
+
+&lt;p&gt;But here’s the crucial question: &lt;strong&gt;how much are these forecasts reliable?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There is confidence they can be trusted if two conditions are met:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The market conditions don’t change&lt;/strong&gt;.
+The forecasts have been done only analysing the numerical data, without any external input. 
+In our case, the sudden spread of the &lt;em&gt;Corona Virus&lt;/em&gt; (Covid19) disease, have suddenly affected the travel sector. 
+One can try to take this into account in &lt;code class=&quot;highlighter-rouge&quot;&gt;fbprophet&lt;/code&gt;, tuning hyper-parameters 
+related to &lt;code class=&quot;highlighter-rouge&quot;&gt;changepoints&lt;/code&gt;, however, given that Covid19 appeared very recently - no effect can be seen before the Feb 15 - but at the same time they strongly affecting the travel sector, it is too early to draw any reliable prediction -after all there are only 4 samples after Feb 15!.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The fit is good&lt;/strong&gt;. 
+Poor fits lead to poor predictions. 
+To asses the goodness of the fit I’ve studied the residuals distribution. 
+If the fit is a good it should be gaussian distributed.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/residuals_plot.png&quot; width=&quot;700&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As it is evident from the plot, there is a clear deviation from gaussianity at the end of the time series where there are few huge outliers.
+In fact, neglecting the last 4 samples of our time series, both the Shapiro and Normal tests (normally used to asses if a distribution is gaussian) say that the distributions of both residual’s query are gaussian at a good confidence level.
+However, the inclusion of the latest values completely spoils this results.
+This is again a strong confirmation of the fact that Covid19 has have strongly impacted the travel sector.&lt;/p&gt;
+
+&lt;p&gt;In conclusion, we can say that, around the world, Booking’s query is still more popular than Airbnb’s one, even if it seems that this latter is going to get more popular in the future.
+In absence of sudden events the forecasts say that this would have happened around the second half of the year, but the sudden spread of Covid19 have made this conclusion unreliable. 
+It still too early to model the impact of Covid19, but keeping collecting data will make the situation clearer.&lt;br /&gt;
+In the meanwhile you can take a look at the &lt;a href=&quot;https://github.com/LorBordin/airbnb_vs_booking/blob/master/analysis.ipynb&quot;&gt;Jupyter notebook&lt;/a&gt; I’ve used to make the analysis and play with it!&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">3 Things on Clickbait You Won’t Believe</title><link href="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html" rel="alternate" type="text/html" title="3 Things on Clickbait You Won't Believe" /><published>2020-01-23T00:00:00+00:00</published><updated>2020-01-23T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2020/01/23/Three-facts-on-Clickbait-you'll-never-believe.html">&lt;p&gt;&lt;strong&gt;Clickbaiting&lt;/strong&gt; is the intentional act of over-promising or otherwise misrepresenting what you’re going to find when you read a story on the web.&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clickbt_ex_1.png&quot; width=&quot;200&quot; /&gt;
@@ -17,11 +172,11 @@ In addition to these, clickbait articles increasingly often do not deliver any s
 &lt;p&gt;News websites are competing for our attention because they need it to thrive in today’s economy. Our interactions on these platforms generate invaluable data without which the machine intelligence that makes them so intuitive and personalised would fail to exist.
 All this comes at the expense of the depletion of real journalism. Important and renowned newspapers have started to produce clickbait contents as well.&lt;/p&gt;
 
-&lt;p&gt;To better understand this phenomenon I have carried out an analysis, quantifying the amount of clickbait contents in mordern journalism. 
-I heve collected headlines from some of the most famous US and UK newspapers.
+&lt;p&gt;To better understand this phenomenon I have carried out an analysis, quantifying the amount of clickbait contents in modern journalism. 
+I have collected headlines from some of the most famous US and UK newspapers.
 Data show the raising of the clickbait phenomenon over time.&lt;/p&gt;
 
-&lt;p&gt;All the details of my analysis are available in my [GithHub repo] (https://github.com/LorBordin/clickbait_analysis).&lt;/p&gt;
+&lt;p&gt;All the details of my analysis are available in my [GitHub repo] (https://github.com/LorBordin/clickbait_analysis).&lt;/p&gt;
 
 &lt;h2 id=&quot;a-clickbait-detector&quot;&gt;A Clickbait Detector&lt;/h2&gt;
 
@@ -56,7 +211,7 @@ As a check that the detector works, here’s some titles classified as clickbait
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;Notice their typical structure like &lt;strong&gt;numbers at the begin of the title&lt;/strong&gt;, or &lt;strong&gt;catchy  exporessions&lt;/strong&gt; as  &lt;em&gt;that will make/keep you&lt;/em&gt; , and so on.&lt;br /&gt;
+&lt;p&gt;Notice their typical structure like &lt;strong&gt;numbers at the begin of the title&lt;/strong&gt;, or &lt;em&gt;_catchy  expressions as  _that will make/keep you&lt;/em&gt; , and so on.&lt;br /&gt;
 These are, instead, some of the titles with the least probability of being clickbait:&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
@@ -75,14 +230,14 @@ Nonetheless this is clearly not a clickbait headline as the classifier correctly
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;The plot shows the percentage of clickbait headlines over time. 
-It is interesting to notice that is stays constant until 2016, than it suddenly raises doubling its value in about 3 years.
+It is interesting to notice that is stays constant until 2016, then it suddenly raises doubling its value in about 3 years.
 In 2019 about 25% of news headlines were clickbait!&lt;/p&gt;
 
 &lt;h3 id=&quot;web-vs-printed-version&quot;&gt;Web vs Printed Version&lt;/h3&gt;
 
 &lt;p&gt;Clickbait headlines is mainly a web phenomenon. 
 A confirmation of this can be found by comparing the printed version of the same headline that appears in the website.
-This is made possible thanks to the attribute &lt;code class=&quot;highlighter-rouge&quot;&gt;print_headline&lt;/code&gt; that many headilines in the NYT API posses.&lt;/p&gt;
+This is made possible thanks to the attribute &lt;code class=&quot;highlighter-rouge&quot;&gt;print_headline&lt;/code&gt; that many headlines in the NYT API posses.&lt;/p&gt;
 
 &lt;p&gt;The analysis shows that quite often &lt;strong&gt;headlines are clickbait in the web version but  not in the printed one&lt;/strong&gt;. For instance,&lt;/p&gt;
 
@@ -93,14 +248,14 @@ This is made possible thanks to the attribute &lt;code class=&quot;highlighter-r
 
 &lt;h2 id=&quot;a-common-trend&quot;&gt;A Common Trend?&lt;/h2&gt;
 
-&lt;p&gt;The analysis on the NYT shows a sudden increase of the clickbait content oin recent times.
-Is this trend common in other newspaprs as well, or is it spacific of the NYT?
-To answer this question I have collected headlines from 3 Brittish news websites: &lt;strong&gt;The Guardian&lt;/strong&gt;,  &lt;strong&gt;BBC news&lt;/strong&gt; and &lt;strong&gt;The telegraph&lt;/strong&gt;, I have also included in my analysis the famous tabloid &lt;strong&gt;Dailymail&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The analysis on the NYT shows a sudden increase of the clickbait content in recent times.
+Is this trend common in other newspapers as well, or is it specific of the NYT?
+To answer this question I have collected headlines from 3 British news websites: &lt;strong&gt;The Guardian&lt;/strong&gt;,  &lt;strong&gt;BBC news&lt;/strong&gt; and &lt;strong&gt;The telegraph&lt;/strong&gt;, I have also included in my analysis the famous tabloid &lt;strong&gt;Dailymail&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Unfortunately, I’m not aware of any API, therefore I had to gently scrap the websites for about two weeks. 
-This short period does not allow me to quantify the rasing of the phenomenon over time, but I could just estimate the current ammount of clickbait contents.&lt;/p&gt;
+This short period does not allow me to quantify the rising of the phenomenon over time, but I could just estimate the current amount of clickbait contents.&lt;/p&gt;
 
-&lt;p&gt;Overall, the  &lt;strong&gt;percentage of clickbait headlines is about 20%&lt;/strong&gt;, comparable with the NYT. It seems that also in the Old Continent, newpapers use similar strategies to attract readers.&lt;/p&gt;
+&lt;p&gt;Overall, the  &lt;strong&gt;percentage of clickbait headlines is about 20%&lt;/strong&gt;, comparable with the NYT. It seems that also in the Old Continent, newspapers use similar strategies to attract readers.&lt;/p&gt;
 
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://raw.githubusercontent.com/LorBordin/clickbait_analysis/master/images/clckbt_ex_uk_journals.png&quot; width=&quot;600&quot; /&gt;
@@ -118,7 +273,7 @@ The fourth entry does not look like clickbait, probably the “six” at the beg
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a very interesting plot: it shows that individual websites adopted different policies regarding clickbaits. Both &lt;em&gt;The Guardian&lt;/em&gt; and the &lt;em&gt;Dailymail&lt;/em&gt; seem to have a poor clickbait content if compared with the &lt;em&gt;BBC news&lt;/em&gt; and especially at &lt;em&gt;The Telegraph&lt;/em&gt;, where the percentage grows up to 30%. 
-However, it is important to mention that the Detector I trained and used, is well suited for “standard clickbait” (that is short titles, cathcy phrases, presence of many abbreviations …), but it can get in trouble if headlines become very long and verbose as in Dailymail.&lt;/p&gt;
+However, it is important to mention that the Detector I trained and used, is well suited for “standard clickbait” (that is short titles, catchy phrases, presence of many abbreviations …), but it can get in trouble if headlines become very long and verbose as in Dailymail.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
@@ -126,7 +281,7 @@ However, it is important to mention that the Detector I trained and used, is wel
 Bad journalism does not only affect hoax websites, whose only purpose is to attract people to get economic reward, but also famous and trusted news publications.&lt;/p&gt;
 
 &lt;p&gt;To fight against this crisis, the developing of new tools like news filters that hide unwanted contents is
-probaly one of the most effective weapons we have at our disposal.
+probably one of the most effective weapons we have at our disposal.
 Together with new tools, however, educating people about the negative effects that clickbait have, not only on the media but on themselves as well, will be crucial.&lt;/p&gt;</content><author><name></name></author><summary type="html">Clickbaiting is the intentional act of over-promising or otherwise misrepresenting what you’re going to find when you read a story on the web.</summary></entry><entry><title type="html">Building a Spam Classifier</title><link href="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html" rel="alternate" type="text/html" title="Building a Spam Classifier" /><published>2019-12-19T00:00:00+00:00</published><updated>2019-12-19T00:00:00+00:00</updated><id>http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier</id><content type="html" xml:base="http://localhost:4000/ainulindale/jekyll/update/2019/12/19/Building-a-Spam-Classifier.html">&lt;p&gt;We all face the problem of spam e-mails in our inboxes.
 Data show that the total volume of spam mails has been consistently growing in time to the point that nowadays it overtakes the amount of ordinary or &lt;em&gt;ham&lt;/em&gt; emails. Estimates tell us that 97% of all emails sent over the Internet in 2008 were unwanted &lt;sup id=&quot;fnref:foot&quot;&gt;&lt;a href=&quot;#fn:foot&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
 Most of the spam is already fitered out by our providers, but

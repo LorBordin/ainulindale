@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Airbnb vs Booking | Ainulindalë</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Airbnb vs Booking" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham. Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field." />
+<meta property="og:description" content="I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham. Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field." />
+<link rel="canonical" href="http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html" />
+<meta property="og:url" content="http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html" />
+<meta property="og:site_name" content="Ainulindalë" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-16T00:00:00+00:00" />
+<script type="application/ld+json">
+{"description":"I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham. Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.","datePublished":"2020-03-16T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html"},"url":"http://localhost:4000/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html","headline":"Airbnb vs Booking","dateModified":"2020-03-16T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/ainulindale/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/ainulindale/feed.xml" title="Ainulindalë" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/ainulindale/">Ainulindalë</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Airbnb vs Booking</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-16T00:00:00+00:00" itemprop="datePublished">Mar 16, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/holy_island.jpg" height="200" width="1000" />
+</div>
+<p><br />
+<br /></p>
+
+<p>Dreaming a holiday? A weekend escape? 
+Nothing have been easier to plan nowadays, thanks to many online platforms that offer wonderful stayings and great experiences!</p>
+
+<p>Few weeks ago, together with some friends, we decided to do a trekking along the wonderful <a href="https://en.wikipedia.org/wiki/Northumberland_Coast">Northumberland coast</a> and explore some its magnificent castles.
+Planning the holiday we were in doubt where to look for our stayings. 
+Personally, I’ve always used <em>Airbnb</em> but other friends were claiming <em>Booking.com</em> is better, being more popular and thus having better options.
+Personally, I had the opposite opinion.. So we made a bet!
+But how to figure out which platform is more popular?</p>
+
+<p>Google provides a great tool for this: <em>Google Trends</em>.
+Not only it knows about what’s popular and what’s not in different countries, but it can tell al lot about people’s habit.
+Besides looking for a answer for my bet, I’ve also decided to play a bit with is and figure out some people’s habits on travels and holydays.</p>
+
+<h1 id="the-data">The data</h1>
+
+<p>The Google trends website analyses the popularity of top search queries in Google Search across various countries and allows to compare different searches providing the historical data on the popularity of each query. 
+To answer my question I’ve gathered the popularity data of the Airbnb and Booking.com platforms since 2008.
+To easily download, access and analyse the data, I’ve used its <a href="https://pypi.org/project/pytrends/1.1.3/">Unofficial API</a>.</p>
+
+<p><strong>Important.</strong>  Google Trends is a great tool for data analysis but in order to make reliable predictions it’s crucial to understand what kind of data it provides. 
+Google Trends  data are not a direct representation of the query’s search volume over time.
+What it displays is the <strong>relative popularity</strong> of a search query, normalised by the total searches of the geography and time range it represents.
+This allows to compare the popularity of a query in different areas with different search volumes, but this also means that one cannot compare two different time series. 
+Comparisons can only be made for the same time interval and only using the specific tool provided by Google Trends.</p>
+
+<h1 id="the-airbnb-liftoff">The Airbnb liftoff</h1>
+
+<p>The following plot shows the relative popularity between Airbnb and Booking.com. 
+The first thing that stands out is a high correlation between the popularity of the two queries: both trends show, especially in the last years, a clear seasonality.</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/hist_trend_UK.png" width="700" />
+</div>
+
+<p>This oscillatory behaviour partially masks the underlying trends, nonetheless the plot undoubtedly answers my question. 
+While at the begin of 2008 Airbnb - that had just started operating - couldn’t compete with Booking then, from 2014 its popularity started to grow very fast and eventually surpassed Booking.com in 2017-2018.</p>
+
+<p>The plot, however tell us way more things than this. 
+For instance we see that since 2015, there are two main peaks in the yearly popularity of both the queries. 
+The highest happens in summer, but there is a second one, centred at the begin of the year that raises every year. 
+Looks like that before 2015 a winter holiday was not so common as now.</p>
+
+<p>Now, let’s take a closer look at all the possible seasonalities.</p>
+
+<h1 id="yearly-weekly-and-daily-seasonalities">Yearly, Weekly and daily seasonalities</h1>
+
+<p>The previous plot is coarse grained,  data are sampled monthly. 
+Selecting smaller time intervals we finer samplings, in this way also weekly and daily seasonalities can be detected. 
+I have plotted all the seasonalities I found in the series of graphs below. 
+Again there is a strong correlation between Airbnb and Booking.com queries: people google them in similar time slots.</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_month.png" width="700" />
+</div>
+
+<p>The first plot is about the popularity per month of the year. 
+There are two peaks in the popularity distribution, the first centred in January and a second one that reaches its maximum in July. 
+These are, of course the two main periods when people go on holiday.
+During Autumn the both trends drop and reach their minimum in December.
+Assuming the trends are directly correlated with how much the people travel, we can say that Autumn is the period of the year where people travel the less.</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_week.png" width="700" />
+</div>
+
+<p>The second plot is similar to the first but now popularity is by week of the year. 
+This allows to resolve additional peaks related to specific periods of holidays.
+For instance we can notice a small increase (especially on the Airbnb query) on the 7th week of the year - late February - is it due to Carnival?
+Another local maximum happens to be on the 20th-21st week, this is surely due to the Bank Holiday of the 25th of May. 
+Finally, there’s a huge spike on the penultime week of the year: lingerers are making the last arrangements for New Years’s Eve!</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_day.png" width="700" />
+</div>
+
+<p>Let’s explore now the popularity of the two queery by day of the week. 
+This is the plot in which the two queries show the less correlation. 
+While the Booking’s popularity is almost constant during the whole week, the Airbnb’s one is biggest on Sunday and constantly decreases to reach its minimum on Friday. 
+This makes me wonder that perhaps Booking.com is more used to plan work travels than Airbnb.</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/by_hour.png" width="700" />
+</div>
+
+<p>My previous hypothesis finds further evidence by looking at hourly popularity.
+In fact, while the Airbnb query distribution peaks around 13 - lunch break - and after 18, the Booking.com distribution stays more or less constant during the whole working hours.</p>
+
+<h1 id="the-whole-world">The Whole World</h1>
+
+<p>In Great Britain <em>Airbnb</em> is more popular than <em>Booking.com</em>. 
+What about the rest of the world?
+Let’s ask Google Trends! 
+Here’s the answer:</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/hist_trend_world.png" width="700" />
+</div>
+
+<p>Booking.com is winning, even if Airbnb looks very close to surpass it. 
+Will it eventually happen? 
+We answer this analysing the time series and making some forecast. 
+The package <code class="highlighter-rouge">fbprophet</code> is the perfect tool for this task: it is designed to analyse time series, decompose them into trends plus seasonalities and make predictions.</p>
+
+<p>In the picture below I’ve plotted the results of <code class="highlighter-rouge">fbprophet</code>’s analisys.</p>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/decomposition.png" width="700" />
+</div>
+
+<p>The first two plots from top show, respectively, the trend and the yearly seasonality of both the platforms. 
+The bottom one is the sum of the two. 
+The black vertical line corresponds to the 15th of March, the date from which the forecasts begin.</p>
+
+<p>The analysis reveals that while Airbnb’s trend is increasing, the Booking.com one is dropping. 
+According to the forecasts, Booking’s trend is going to drop below Airbnb’s one in the first half of 2020. 
+To these, we must take into account the seasonalities as well, that shift the date of the surpass towards the second half of the year.</p>
+
+<p>But here’s the crucial question: <strong>how much are these forecasts reliable?</strong></p>
+
+<p>There is confidence they can be trusted if two conditions are met:</p>
+
+<ul>
+  <li>
+    <p><strong>The market conditions don’t change</strong>.
+The forecasts have been done only analysing the numerical data, without any external input. 
+In our case, the sudden spread of the <em>Corona Virus</em> (Covid19) disease, have suddenly affected the travel sector. 
+One can try to take this into account in <code class="highlighter-rouge">fbprophet</code>, tuning hyper-parameters 
+related to <code class="highlighter-rouge">changepoints</code>, however, given that Covid19 appeared very recently - no effect can be seen before the Feb 15 - but at the same time they strongly affecting the travel sector, it is too early to draw any reliable prediction -after all there are only 4 samples after Feb 15!.</p>
+  </li>
+  <li>
+    <p><strong>The fit is good</strong>. 
+Poor fits lead to poor predictions. 
+To asses the goodness of the fit I’ve studied the residuals distribution. 
+If the fit is a good it should be gaussian distributed.</p>
+  </li>
+</ul>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorBordin/airbnb_vs_booking/master/images/residuals_plot.png" width="700" />
+</div>
+
+<p>As it is evident from the plot, there is a clear deviation from gaussianity at the end of the time series where there are few huge outliers.
+In fact, neglecting the last 4 samples of our time series, both the Shapiro and Normal tests (normally used to asses if a distribution is gaussian) say that the distributions of both residual’s query are gaussian at a good confidence level.
+However, the inclusion of the latest values completely spoils this results.
+This is again a strong confirmation of the fact that Covid19 has have strongly impacted the travel sector.</p>
+
+<p>In conclusion, we can say that, around the world, Booking’s query is still more popular than Airbnb’s one, even if it seems that this latter is going to get more popular in the future.
+In absence of sudden events the forecasts say that this would have happened around the second half of the year, but the sudden spread of Covid19 have made this conclusion unreliable. 
+It still too early to model the impact of Covid19, but keeping collecting data will make the situation clearer.<br />
+In the meanwhile you can take a look at the <a href="https://github.com/LorBordin/airbnb_vs_booking/blob/master/analysis.ipynb">Jupyter notebook</a> I’ve used to make the analysis and play with it!</p>
+
+  </div><a class="u-url" href="/ainulindale/jekyll/update/2020/03/16/airbnb_vs_booking.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/ainulindale/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Ainulindalë</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Ainulindalë</li><li><a class="u-email" href="mailto:lorenzo.bordin@nottingham.ac.uk">lorenzo.bordin@nottingham.ac.uk</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/LorBordin"><svg class="svg-icon"><use xlink:href="/ainulindale/assets/minima-social-icons.svg#github"></use></svg> <span class="username">LorBordin</span></a></li><li><a href="https://www.linkedin.com/in/Lorenzo-Bordin"><svg class="svg-icon"><use xlink:href="/ainulindale/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Lorenzo-Bordin</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>I’m Lorenzo, a theoretical physicist working in Cosmology at the University of Nottingham.  Data science and Machine Learning appassionate, I’ve created this blog to share what I’ve learned in this field.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
